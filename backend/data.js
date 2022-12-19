@@ -1,0 +1,53 @@
+const data = {
+    products: [
+      {
+        name: 'iPhone 13 Pro',
+        slug: 'iphone-13-pro',
+        category: 'Phone',
+        image: '/images/iPhone 13 Pro.jpg', // 679px × 829px
+        price: 120,
+        countInStock: 10,
+        brand: 'Apple',
+        rating: 4.5,
+        numReviews: 10,
+        description: 'high quality phone',
+      },
+      {
+        name: 'Google Pixel 7 Pro',
+        slug: 'google-pixel-7-pro',
+        category: 'Phone',
+        image: '/images/Google Pixel 7 Pro.jpg',
+        price: 250,
+        countInStock: 20,
+        brand: 'Google',
+        rating: 4.0,
+        numReviews: 10,
+        description: 'high quality product',
+      },
+      {
+        name: 'Acer Aspire 5 A515-56-32DK',
+        slug: 'acer-aspire-5-a515-56-32dk',
+        category: 'Laptop',
+        image: '/images/Acer Aspire 5 A515-56-32DK.jpg',
+        price: 25,
+        countInStock: 15,
+        brand: 'Acer',
+        rating: 4.5,
+        numReviews: 14,
+        description: 'high quality product',
+      },
+      {
+        name: '2020 Apple MacBook Air M1',
+        slug: 'adidas-fit-pant',
+        category: 'Laptop',
+        image: '/images/2020 Apple MacBook Air M1.jpg',
+        price: 65,
+        countInStock: 5,
+        brand: 'Apple',
+        rating: 4.5,
+        numReviews: 10,
+        description: 'high quality product',
+      },
+    ],
+  };
+  export default data;
