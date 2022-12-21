@@ -41,3 +41,7 @@
     1. create Rating component
     2. Create Product component
     3. Use Rating component in Product component
+09. Create Product Details Screen
+    1. npm install react-helmet-async
+    2. fetch product from backend
+    3. create 3 columns for image, info and action

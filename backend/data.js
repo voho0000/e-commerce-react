@@ -6,7 +6,7 @@ const data = {
         category: 'Phone',
         image: '/images/iphone-13-pro.jpg', // 679px × 829px
         price: 120,
-        countInStock: 10,
+        countInStock: 0,
         brand: 'Apple',
         rating: 4.5,
         numReviews: 10,
