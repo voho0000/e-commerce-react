@@ -2,7 +2,9 @@ import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 //import data from '../data';
 import axios from 'axios';
-import logger from 'use-reducer-logger';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -19,7 +21,7 @@ const reducer = (state, action) => {
 
 
 function HomeScreen() {
-    const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+    const [{ loading, error, products }, dispatch] = useReducer(reducer, {
         products: [],
         loading: true,
         error: '',

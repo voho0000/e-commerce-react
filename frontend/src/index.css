@@ -12,12 +12,12 @@ code {
     monospace;
 }
 
-header a {
-  font-weight: bold;
-  text-decoration: none;
+.site-container {
+  min-height: 100vh;
 }
+
 main {
-  padding: 1rem;
+  flex: 1;
 }
 .products {
   display: flex;
@@ -32,6 +32,7 @@ main {
 .product img {
   width: 100%;
   max-width: 400px;
+  max-height: 400px;
 }
 .product-info {
   padding: 1rem;
