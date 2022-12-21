@@ -1,6 +1,7 @@
 const data = {
     products: [
       {
+        id:1,
         name: 'iPhone 13 Pro',
         slug: 'iphone-13-pro',
         category: 'Phone',
@@ -13,6 +14,7 @@ const data = {
         description: 'high quality phone',
       },
       {
+        id:2,
         name: 'Google Pixel 7 Pro',
         slug: 'google-pixel-7-pro',
         category: 'Phone',
@@ -25,6 +27,7 @@ const data = {
         description: 'high quality product',
       },
       {
+        id:3,
         name: 'Acer Aspire 5 A515-56-32DK',
         slug: 'acer-aspire-5-a515-56-32dk',
         category: 'Laptop',
@@ -37,6 +40,7 @@ const data = {
         description: 'high quality product',
       },
       {
+        id:4,
         name: '2020 Apple MacBook Air M1',
         slug: '2020-apple-macbook-air-m1',
         category: 'Laptop',
