@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+
 
 
 
@@ -23,11 +25,12 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
   };
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
-        <ToastContainer position='bottom-center' limit={1}/>
+        <ToastContainer position='bottom-center' limit={1} />
         <header>
           <Navbar bg="dark" variant="dark">
             <Container>
@@ -43,8 +46,8 @@ function App() {
                     </Badge>
                   )}
                 </Link>
-                {userInfo? (
-                  <NavDropdown title = {userInfo.name} id="basic-nav-dropdown">
+                {userInfo ? (
+                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
                     </LinkContainer>
@@ -52,9 +55,9 @@ function App() {
                       <NavDropdown.Item>Order History</NavDropdown.Item>
                     </LinkContainer>
                     <Link
-                     className='dropdown-item'
-                     to="#signout"
-                     onClick={signoutHandler}
+                      className='dropdown-item'
+                      to="#signout"
+                      onClick={signoutHandler}
                     >
                       Sign Out
                     </Link>
@@ -76,6 +79,10 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route
+                path="/shipping"
+                element={<ShippingAddressScreen />}
+              ></Route>
             </Routes>
           </Container>
         </main>
