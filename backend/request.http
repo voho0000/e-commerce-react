@@ -1,7 +1,7 @@
-###
+### test fetch product info
 GET http://localhost:8000/api/products/1
 
-###
+### test signin function
 POST http://localhost:8000/api/users/signin
 content-type: application/json
 
@@ -10,5 +10,15 @@ content-type: application/json
     "password" : "123456"
 }
 
-###
+### 
 GET http://localhost:8000/api/seed/
+
+### test signup function
+POST http://localhost:8000/api/users/signup
+content-type: application/json
+
+{
+    "name":"test5",
+    "email":"test5@example.com",
+    "password" : "123456"
+}

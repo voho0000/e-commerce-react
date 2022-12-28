@@ -14,8 +14,7 @@ import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
-
-
+import SignupScreen from './screens/SignupScreen';
 
 
 function App() {
@@ -83,6 +82,7 @@ function App() {
                 path="/shipping"
                 element={<ShippingAddressScreen />}
               ></Route>
+              <Route path="/signup" element={<SignupScreen />} />
             </Routes>
           </Container>
         </main>
