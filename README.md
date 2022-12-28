@@ -79,3 +79,10 @@
     5. find products SQL query
     6. change data name to match database column name
     7. test request from extension: rest-cilent
+16. Seed a user + Signin Backend API
+    1. npm install bcryptjs
+    2. npm install jsonwebtoken
+    3. npm install --save express-async-handler
+    3. create signin api
+    4. define generateToken
+    6. seed a user for testing insert value into SQL database

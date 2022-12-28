@@ -1,1 +1,14 @@
-http://localhost:8000/api/products/1
+###
+GET http://localhost:8000/api/products/1
+
+###
+POST http://localhost:8000/api/users/signin
+content-type: application/json
+
+{
+    "email":"admin@example.com",
+    "password" : "123456"
+}
+
+###
+GET http://localhost:8000/api/seed/
