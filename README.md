@@ -86,3 +86,7 @@
     3. create signin api
     4. define generateToken
     6. seed a user for testing insert value into SQL database
+17. Complete Signin Screen
+    1. handle submit action
+    2. save token in store and local storage
+    3. show user name in header
