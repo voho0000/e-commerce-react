@@ -58,6 +58,7 @@ export default function CartScreen() {
                                                 src={item.image_url}
                                                 alt={item.name}
                                                 className="img-fluid rounded img-thumbnail"
+                                                id = "img-thumbnail"
                                             ></img>{' '}
                                             <Link to={`/product/${item.id}`}>{item.name}</Link>
                                         </Col>
