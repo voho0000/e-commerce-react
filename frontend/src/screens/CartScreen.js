@@ -19,7 +19,7 @@ export default function CartScreen() {
 
     const updateCartHandler = async (item, quantity) => {
         const { data } = await axios.get(`/api/products/${item.id}`);
-        if (data.countInStock < quantity) {
+        if (data.countinstock < quantity) {
             window.alert('Sorry. Product is out of stock');
             return;
         }
@@ -51,15 +51,15 @@ export default function CartScreen() {
                     ) : (
                         <ListGroup>
                             {cartItems.map((item) => (
-                                <ListGroup.Item key={item._id}>
+                                <ListGroup.Item key={item.id}>
                                     <Row className="align-items-center">
                                         <Col md={4}>
                                             <img
-                                                src={item.image}
+                                                src={item.image_url}
                                                 alt={item.name}
                                                 className="img-fluid rounded img-thumbnail"
                                             ></img>{' '}
-                                            <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                                            <Link to={`/product/${item.id}`}>{item.name}</Link>
                                         </Col>
                                         <Col md={3}>
                                             <Button
@@ -77,7 +77,7 @@ export default function CartScreen() {
                                                 onClick={() =>
                                                     updateCartHandler(item, item.quantity + 1)
                                                 }
-                                                disabled={item.quantity === item.countInStock}
+                                                disabled={item.quantity === item.countinstock}
                                             >
                                                 <i className="fas fa-plus-circle"></i>
                                             </Button>

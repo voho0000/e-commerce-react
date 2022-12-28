@@ -1,8 +1,21 @@
 import express from 'express';
-import data from './data.js';
+import data from './data.js'; 
+import * as pg from 'pg'
+import * as dotenv from 'dotenv' 
+import productRouter from './routes/productRoutes.js';
+import pool from './pool.js'
+
+/*
+pool.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+*/
 
 const app = express();
 
+app.use('/api/products', productRouter);
+/*
 app.get('/api/products', (req, res) => {
   res.send(data.products);
 });
@@ -25,6 +38,7 @@ app.get('/api/products/:id', (req, res) => {
     res.status(404).send({ message: 'Product Not Found' });
   }
 });
+*/
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

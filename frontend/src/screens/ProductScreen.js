@@ -33,7 +33,7 @@ const reducer = (state, action) => {
 function ProductScreen() {
     const params = useParams();
     const navigate = useNavigate();
-    const { slug } = params;
+    const { id } = params;
     const [{ loading, error, product }, dispatch] = useReducer(reducer, {
         product: [],
         loading: true,
@@ -43,21 +43,22 @@ function ProductScreen() {
         const fetchData = async () => {
             dispatch({ type: 'FETCH_REQUEST' });
             try {
-                const result = await axios.get(`/api/products/slug/${slug}`);
-                dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+                const result = await axios.get(`/api/products/${id}`);
+                const data = result.data[0]
+                dispatch({ type: 'FETCH_SUCCESS', payload: data });
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
             }
         };
         fetchData();
-    }, [slug]);
-
+    }, [id]);
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { cart } = state;
     const addToCartHandler = async () => {
       const existItem = cart.cartItems.find((x) => x.id === product.id);
       const quantity = existItem ? existItem.quantity + 1 : 1;
-      const { data } = await axios.get(`/api/products/${product.id}`);
+      const result = await axios.get(`/api/products/${product.id}`);
+      const data = result.data[0]
       if (data.countInStock < quantity) {
         window.alert('Sorry. Product is out of stock');
         return;
@@ -81,8 +82,9 @@ function ProductScreen() {
                 <Col md={6}>
                     <img
                         className="img-large"
-                        src={product.image}
+                        src={product.image_url}
                         alt={product.name}
+                        style={{width:'400px'}}
                     ></img>
                 </Col>
                 <Col md={3}>
@@ -120,7 +122,7 @@ function ProductScreen() {
                                     <Row>
                                         <Col>Status:</Col>
                                         <Col>
-                                            {product.countInStock > 0 ? (
+                                            {product.countinstock > 0 ? (
                                                 <Badge bg="success">In Stock</Badge>
                                             ) : (
                                                 <Badge bg="danger">Unavailable</Badge>
@@ -129,7 +131,7 @@ function ProductScreen() {
                                     </Row>
                                 </ListGroup.Item>
 
-                                {product.countInStock > 0 && (
+                                {product.countinstock > 0 && (
                                     <ListGroup.Item>
                                         <div className="d-grid">
                                             <Button onClick={addToCartHandler} variant="primary">

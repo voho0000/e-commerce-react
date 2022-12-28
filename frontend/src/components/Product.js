@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
 
-function Product({product}) {
+function Product({ product }) {
   //const { product } = props;
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -30,11 +30,15 @@ function Product({product}) {
 
   return (
     <Card>
-      <Link to={`/product/${product.slug}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
+      <Link to={`/product/${product.id}`}>
+        <img src={product.image_url} 
+              className="card-img-top" 
+              alt={product.name} 
+              style={{ objectFit: 'contain',
+                        height: '200px',}}/>
       </Link>
       <Card.Body>
-        <Link to={`/product/${product.slug}`}>
+        <Link to={`/product/${product.id}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
