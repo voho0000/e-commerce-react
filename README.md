@@ -117,3 +117,5 @@ Future modification:
 22. Implement Place Order Action
     1. handle place order action
     2. create order create api
+    3. modify name to match database schema
+    4. **Problem: infinite looping while add order in useEffect dependency array(Unsolved)**

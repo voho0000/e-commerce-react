@@ -6,7 +6,7 @@ export const generateToken = (user) => {
       id: user.id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
+      isadmin: user.isadmin,
     },
     process.env.JWT_SECRET,
     {
@@ -24,7 +24,6 @@ export const isAuth = (req, res, next) => {
         res.status(401).send({ message: 'Invalid Token' });
       } else {
         req.user = decode;
-        console.log(req.user)
         next();
       }
     });

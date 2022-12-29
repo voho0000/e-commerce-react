@@ -10,22 +10,22 @@ export default function PaymentMethodScreen() {
     const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const {
-        cart: { shippingAddress, paymentMethod },
+        cart: { shipping_address, payment_method },
     } = state;
 
     const [paymentMethodName, setPaymentMethod] = useState(
-        paymentMethod || 'PayPal'
+        payment_method || 'PayPal'
     );
 
     useEffect(() => {
-        if (!shippingAddress.address) {
+        if (!shipping_address.address) {
             navigate('/shipping');
         }
-    }, [shippingAddress, navigate]);
+    }, [shipping_address, navigate]);
     const submitHandler = (e) => {
         e.preventDefault();
         ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName });
-        localStorage.setItem('paymentMethod', paymentMethodName);
+        localStorage.setItem('payment_method', paymentMethodName);
         navigate('/placeorder');
     };
 

@@ -14,7 +14,6 @@ productRouter.get('/', async (req, res) => {
 
 productRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   const product = await ProductRepo.findById(id);
 

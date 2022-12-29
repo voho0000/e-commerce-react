@@ -14,12 +14,14 @@ userRouter.post(
         user = user[0]
 
         if (user) {
+            console.log(generateToken(user));
+            console.log(user);
             if (bcrypt.compareSync(req.body.password, user.password)) {
                 res.send({
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    isAdmin: user.isadmin,
+                    isadmin: user.isadmin,
                     token: generateToken(user),
                 })
                 return;
@@ -37,7 +39,7 @@ userRouter.post(
             name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password),
-            isAdmin: req.body.isAdmin ? req.body.isAdmin : 0,
+            isadmin: req.body.isadmin ? req.body.isadmin : 0,
             token: ''
         };
 
@@ -48,7 +50,7 @@ userRouter.post(
             id: createdUser.id,
             name: createdUser.name,
             email: createdUser.email,
-            isAdmin: createdUser.isadmin
+            isadmin: createdUser.isadmin
         };
         createdUser.token = generateToken(user)
         createdUser = await UserRepo.updateUserToken(createdUser);
@@ -58,7 +60,7 @@ userRouter.post(
             id: createdUser.id,
             name: createdUser.name,
             email: createdUser.email,
-            isAdmin: createdUser.isadmin,
+            isadmin: createdUser.isadmin,
             token: createdUser.token,
         });
     })

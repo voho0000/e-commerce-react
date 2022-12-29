@@ -21,5 +21,17 @@ content-type: application/json
     "name":"test8",
     "email":"test8@example.com",
     "password" : "123456",
-    "isAdmin":0
+    "isadmin":0
 }
+
+###
+GET http://localhost:8000/api/orders/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsIm5hbWUiOiJ0ZXN0OCIsImVtYWlsIjoidGVzdDhAZXhhbXBsZS5jb20iLCJpc0FkbWluIjowLCJpYXQiOjE2NzIzMDg4NjQsImV4cCI6MTY3NDkwMDg2NH0.Kvi6jm9DTwIF3A1GFyZ2Y-Jw375RYca0tCtELg8fEbQ
+
+###
+GET http://localhost:8000/api/orders/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ0ZXN0OSIsImVtYWlsIjoidGVzdDlAZXhhbXBsZS5jb20iLCJpc0FkbWluIjowLCJpYXQiOjE2NzIzMzI4MDEsImV4cCI6MTY3NDkyNDgwMX0.Cul3s4iY9VhQcu_0qAGwwJpHjAg-RYg3U17gYYpYqHo
+
+###
+GET http://localhost:8000/api/orders/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ0ZXN0OSIsImVtYWlsIjoidGVzdDlAZXhhbXBsZS5jb20iLCJpYXQiOjE2NzIzMzQxNDAsImV4cCI6MTY3NDkyNjE0MH0._36lvdxal7AdPSEEfT97cqSq1yM7HX5R2pKMWkCFk0I

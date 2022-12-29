@@ -36,11 +36,11 @@ export default function PlaceOrderScreen() {
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { cart, userInfo } = state;
 
-    cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
+    cart.items_price = cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
     ;
-    cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 10;
-    cart.discountPrice = 0;
-    cart.totalPrice = cart.itemsPrice + cart.shippingPrice - cart.discountPrice;
+    cart.shipping_price = cart.items_price > 100 ? 0 : 10;
+    cart.discount_price = 0;
+    cart.total_price = cart.items_price + cart.shipping_price - cart.discount_price;
 
     const placeOrderHandler = async () => {
         try {
@@ -50,12 +50,12 @@ export default function PlaceOrderScreen() {
                 '/api/orders',
                 {
                     orderItems: cart.cartItems,
-                    shippingAddress: cart.shippingAddress,
-                    paymentMethod: cart.paymentMethod,
-                    itemsPrice: cart.itemsPrice,
-                    shippingPrice: cart.shippingPrice,
-                    discountPrice: cart.discountPrice,
-                    totalPrice: cart.totalPrice,
+                    shipping_address: cart.shipping_address,
+                    payment_method: cart.payment_method,
+                    items_price: cart.items_price,
+                    shipping_price: cart.shipping_price,
+                    discount_price: cart.discount_price,
+                    total_price: cart.total_price,
                 },
                 {
                     headers: {
@@ -74,7 +74,7 @@ export default function PlaceOrderScreen() {
     };
 
     useEffect(() => {
-        if (!cart.paymentMethod) {
+        if (!cart.payment_method) {
             navigate('/payment');
         }
     }, [cart, navigate]);
@@ -92,11 +92,11 @@ export default function PlaceOrderScreen() {
                         <Card.Body>
                             <Card.Title>Shipping</Card.Title>
                             <Card.Text>
-                                <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                                <strong>Phone Number:</strong> {cart.shippingAddress.phone} <br />
-                                <strong>Address: </strong> {cart.shippingAddress.address},
-                                {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
-                                {cart.shippingAddress.country}
+                                <strong>Name:</strong> {cart.shipping_address.fullName} <br />
+                                <strong>Phone Number:</strong> {cart.shipping_address.phone} <br />
+                                <strong>Address: </strong> {cart.shipping_address.address},
+                                {cart.shipping_address.city}, {cart.shipping_address.postalCode},
+                                {cart.shipping_address.country}
                             </Card.Text>
                             <Link to="/shipping">Edit</Link>
                         </Card.Body>
@@ -106,7 +106,7 @@ export default function PlaceOrderScreen() {
                         <Card.Body>
                             <Card.Title>Payment</Card.Title>
                             <Card.Text>
-                                <strong>Method:</strong> {cart.paymentMethod}
+                                <strong>Method:</strong> {cart.payment_method}
                             </Card.Text>
                             <Link to="/payment">Edit</Link>
                         </Card.Body>
@@ -152,19 +152,19 @@ export default function PlaceOrderScreen() {
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>Items</Col>
-                                        <Col>${cart.itemsPrice}</Col>
+                                        <Col>${cart.items_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>Shipping</Col>
-                                        <Col>${cart.shippingPrice}</Col>
+                                        <Col>${cart.shipping_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>discount</Col>
-                                        <Col>${cart.discountPrice}</Col>
+                                        <Col>${cart.discount_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
@@ -173,7 +173,7 @@ export default function PlaceOrderScreen() {
                                             <strong> Order Total</strong>
                                         </Col>
                                         <Col>
-                                            <strong>${cart.totalPrice}</strong>
+                                            <strong>${cart.total_price}</strong>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>

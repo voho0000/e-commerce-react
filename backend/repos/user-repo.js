@@ -15,7 +15,7 @@ export default class UserRepo {
         try {
             await pool.query(`INSERT INTO member(email, name, password, isAdmin, token) 
                             VALUES($1, $2, $3, $4, $5);`,
-                            [user.email, user.name, user.password, user.isAdmin, user.token]);
+                            [user.email, user.name, user.password, user.isadmin, user.token]);
 
             var {rows} =  await pool.query("SELECT currval('member_id_seq')");
             const id = parseInt(rows[0].currval)

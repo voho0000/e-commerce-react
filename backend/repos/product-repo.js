@@ -14,9 +14,8 @@ export default class ProductRepo {
 
     static async findById(id) {
         try {
-            const { rows } = await pool.query('SELECT * FROM product WHERE id = $1;',
-                [id]);
-            return rows
+            const data = await pool.query('SELECT * FROM product WHERE id = $1;',[id]);
+            return data
         } catch (err) {
             console.log(err)
         }

@@ -11,16 +11,16 @@ export default function ShippingAddressScreen() {
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const {
         userInfo,
-        cart: { shippingAddress },
+        cart: { shipping_address },
     } = state;
-    const [fullName, setFullName] = useState(shippingAddress.fullName || '');
-    const [phone, setPhone] = useState(shippingAddress.phone || '');
-    const [address, setAddress] = useState(shippingAddress.address || '');
-    const [city, setCity] = useState(shippingAddress.city || '');
-    const [postalCode, setPostalCode] = useState(
-        shippingAddress.postalCode || ''
+    const [fullname, setFullName] = useState(shipping_address.fullname || '');
+    const [phone, setPhone] = useState(shipping_address.phone || '');
+    const [address, setAddress] = useState(shipping_address.address || '');
+    const [city, setCity] = useState(shipping_address.city || '');
+    const [postal_code, setPostalCode] = useState(
+        shipping_address.postal_code || ''
     );
-    const [country, setCountry] = useState(shippingAddress.country || '');
+    const [country, setCountry] = useState(shipping_address.country || '');
     //When signout status and enter shippingAddress page, it will redirect to signin page
     useEffect(() => {
         if (!userInfo) {
@@ -33,22 +33,22 @@ export default function ShippingAddressScreen() {
         ctxDispatch({
             type: 'SAVE_SHIPPING_ADDRESS',
             payload: {
-                fullName,
+                fullname,
                 phone,
                 address,
                 city,
-                postalCode,
+                postal_code,
                 country,
             },
         });
         localStorage.setItem(
-            'shippingAddress',
+            'shipping_address',
             JSON.stringify({
-                fullName,
+                fullname,
                 phone,
                 address,
                 city,
-                postalCode,
+                postal_code,
                 country,
             })
         );
@@ -64,10 +64,10 @@ export default function ShippingAddressScreen() {
             <div className="container small-container">
                 <h1 className="my-3">Shipping Address</h1>
                 <Form onSubmit={submitHandler}>
-                    <Form.Group className="mb-3" controlId="fullName">
+                    <Form.Group className="mb-3" controlId="fullname">
                         <Form.Label>Full Name</Form.Label>
                         <Form.Control
-                            value={fullName}
+                            value={fullname}
                             onChange={(e) => setFullName(e.target.value)}
                             required
                         />
@@ -99,7 +99,7 @@ export default function ShippingAddressScreen() {
                     <Form.Group className="mb-3" controlId="postalCode">
                         <Form.Label>Postal Code</Form.Label>
                         <Form.Control
-                            value={postalCode}
+                            value={postal_code}
                             onChange={(e) => setPostalCode(e.target.value)}
                             required
                         />
