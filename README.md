@@ -1,6 +1,16 @@
 # E-commerce
 
-# Steps
+## Reference
+The original version is the following repository:  
+https://github.com/basir/mern-amazona
+
+Our modification: 
+1. MongoDB change to SQL database  
+
+Future modification:  
+1. Add coupon functionality
+
+## Steps
 1. Create React App + Create Git Repository
 2. List Products
     1. Create product array 
@@ -8,14 +18,14 @@
     3. render products
     4. style products
 3. Add page routing
-   1. npm i react-router-dom
+   1. npm install react-router-dom (frontend)
    2. create route for home screen
    3. create router for product screen
 4. Create Node.JS Server
    1. run npm init in root folder
    2. Update package.json set type: module
    3. Add .js to imports
-   4. npm install express
+   4. npm install express (backend)
    5. create server.js
    6. add start command as node backend/server.js
    7. require express
@@ -26,7 +36,7 @@
    12. run npm start
 5. Fetch Products From Backend
    1. set proxy in package.json
-   2. npm install axios
+   2. npm install axios (frontend+backend)
    3. use state hook
    4. use effect hook
    5. use reducer hook
@@ -35,14 +45,14 @@
    2. update fetch data
    3. get state from usReducer
 7. Add bootstrap UI Framework
-    1. npm install react-bootstrap bootstrap
+    1. npm install react-bootstrap bootstrap (frontend)
     2. update App.js
 8. Create Product and Rating Component
     1. create Rating component
     2. Create Product component
     3. Use Rating component in Product component
 9. Create Product Details Screen
-    1. npm install react-helmet-async
+    1. npm install react-helmet-async (frontend)
     2. fetch product from backend
     3. create 3 columns for image, info and action
 10. Create Loading and Message Component
@@ -72,7 +82,7 @@
     2. add email and password
     3. add signin button
     - Connect to PostgreSQL database
-    1. npm install express
+    1. npm install express (backend)
     2. config postgresql server
     3. pool connection
     4. productRouter 
@@ -80,9 +90,9 @@
     6. change data name to match database column name
     7. test request from extension: rest-cilent
 16. Seed a user + Signin Backend API
-    1. npm install bcryptjs
-    2. npm install jsonwebtoken
-    3. npm install --save express-async-handler
+    1. npm install bcryptjs (backend)
+    2. npm install jsonwebtoken (backend)
+    3. npm install --save express-async-handler (backend)
     3. create signin api
     4. define generateToken
     6. seed a user for testing insert value into SQL database
@@ -103,5 +113,4 @@
     2. handle submit
 21. Create Place Order Screen
     1. show cart items, payment and address
-    2. handle place order action
-    3. create order create api
+    2. calculate order summary
