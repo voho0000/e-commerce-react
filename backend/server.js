@@ -4,8 +4,8 @@ import * as pg from 'pg'
 import * as dotenv from 'dotenv' 
 import productRouter from './routes/productRoutes.js';
 import pool from './pool.js'
-import seedRouter from './routes/seedRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
 
 
 /*
@@ -21,8 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', productRouter);
-app.use('/api/seed', seedRouter);
 app.use('/api/users', userRouter);
+app.use('/api/orders', orderRouter);
+
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

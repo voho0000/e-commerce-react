@@ -19,7 +19,7 @@ userRouter.post(
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    isAdmin: user.isAdmin,
+                    isAdmin: user.isadmin,
                     token: generateToken(user),
                 })
                 return;
@@ -41,15 +41,24 @@ userRouter.post(
             token: ''
         };
 
-        user.token = generateToken(user)
+        
         var createdUser = await UserRepo.createUser(user);
+        createdUser = createdUser[0]
+        user = {
+            id: createdUser.id,
+            name: createdUser.name,
+            email: createdUser.email,
+            isAdmin: createdUser.isadmin
+        };
+        createdUser.token = generateToken(user)
+        createdUser = await UserRepo.updateUserToken(createdUser);
         createdUser = createdUser[0]
 
         res.send({
             id: createdUser.id,
             name: createdUser.name,
             email: createdUser.email,
-            isAdmin: createdUser.isAdmin,
+            isAdmin: createdUser.isadmin,
             token: createdUser.token,
         });
     })

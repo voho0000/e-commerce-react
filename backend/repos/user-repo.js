@@ -19,13 +19,21 @@ export default class UserRepo {
 
             var {rows} =  await pool.query("SELECT currval('member_id_seq')");
             const id = parseInt(rows[0].currval)
-            console.log(rows);
-            console.log(id);
             var {rows} = await pool.query("SELECT * from member where id = $1;", [id]);
-            console.log(rows);
             return rows
         } catch (err) {
             console.log(err)
         }  
+    }
+
+    static async updateUserToken(createdUser) {
+        try {
+            await pool.query(`UPDATE member SET token = $1 WHERE id = $2;`,
+                            [createdUser.token, createdUser.id]);
+            var {rows} = await pool.query("SELECT * from member where id = $1;", [createdUser.id]);
+            return rows
+        } catch (err) {
+            console.log(err)
+        }         
     }
 }
