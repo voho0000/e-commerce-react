@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
-import { generateToken } from '../utils.js';
+import { isAuth, generateToken } from '../utils.js';
 import UserRepo from '../repos/user-repo.js';
 
 
@@ -43,7 +43,7 @@ userRouter.post(
             token: ''
         };
 
-        
+
         var createdUser = await UserRepo.createUser(user);
         createdUser = createdUser[0]
         user = {
@@ -63,6 +63,33 @@ userRouter.post(
             isadmin: createdUser.isadmin,
             token: createdUser.token,
         });
+    })
+);
+
+userRouter.put(
+    '/profile',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+        const user = await UserRepo.findById(req.user.id);
+        if (user) {
+            user.name = req.body.name ? req.body.name : user.name;
+            user.email = req.body.email ? req.body.email : user.email;
+            if (req.body.password) {
+                user.password = bcrypt.hashSync(req.body.password, 8);
+            }
+            user.token = generateToken(user)
+            const updatedUser = await UserRepo.updateUserInfo(user);
+            console.log(updatedUser)
+            res.send({
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                isadmin: updatedUser.isadmin,
+                token: updatedUser.token,
+            });
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
     })
 );
 
