@@ -33,6 +33,23 @@ export default class OrderRepo {
         }
     }
 
+    static async findByUser(userId){
+        try {
+            var { rows } = await pool.query(`SELECT * FROM orders WHERE user_id = $1;`, [userId]);
+            /*
+            var { rows } = await pool.query(`SELECT * FROM purchase_item WHERE order_id = $1;`, [orderId]);
+            order.orderItems = rows
+            var { rows } = await pool.query(`SELECT * FROM shipping_address WHERE order_id = $1;`, [orderId]);
+            rows = rows[0]
+            order.shipping_address = rows
+            
+            */
+            return rows
+        } catch (err) {
+            console.log(err)
+        }  
+    }
+
     static async findById(orderId) {
         try {
             var { rows } = await pool.query(`SELECT * FROM orders WHERE id = $1;`, [orderId]);

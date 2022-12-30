@@ -16,6 +16,15 @@ orderRouter.post(
     })
 );
 
+orderRouter.get(
+    '/mine',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+    const orders = await OrderRepo.findByUser(req.user.id);
+    res.send(orders);
+    })
+  );
+  
 
 orderRouter.get(
     '/:id',

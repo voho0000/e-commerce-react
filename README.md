@@ -123,3 +123,7 @@ Future modification:
 23. Pay Order By a button
     1. create pay order api in backend
     2. create pay button and handler
+24. Display Order History
+    1. create order screen
+    2. create order history api
+    3. use api in the frontend
