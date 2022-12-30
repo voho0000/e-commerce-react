@@ -10,6 +10,16 @@ export default class ProductRepo {
         }
     }
 
+    static async getCategories() {
+        try {
+            const { rows } = await pool.query('SELECT distinct(category) FROM product;');
+            console.log(rows)
+            let categories = rows.map(({ category }) => category)
+            return categories
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
 
     static async findById(id) {

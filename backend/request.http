@@ -54,3 +54,6 @@ content-type: application/json
 ### 
 GET http://localhost:8000/api/orders/mine
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm5hbWUiOiJ0ZXN0MTAiLCJlbWFpbCI6InRlc3QxMEBleGFtcGxlLmNvbSIsImlzYWRtaW4iOjAsImlhdCI6MTY3MjM4Mjc1OSwiZXhwIjoxNjc0OTc0NzU5fQ.jb-xaZU9ngpiz7Q0UPgbE6gqPh-8wEs8k8ZJi9nBcI8
+
+###
+GET http://localhost:8000/api/products/categories
