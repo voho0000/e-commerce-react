@@ -11,7 +11,6 @@ orderRouter.post(
     expressAsyncHandler(async (req, res) => {
         const userID = req.user.id
         const orderInfo = req.body
-        //console.log(orderInfo)
         const order = await OrderRepo.createOrder(userID, orderInfo);
         res.status(201).send({ message: 'New Order Created', order });
     })
@@ -30,5 +29,16 @@ orderRouter.get(
         }
     })
 );
+
+orderRouter.put(
+    '/:id/pay',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+        const order = req.body
+        const rows = await OrderRepo.updateOrderPay(order)
+        res.send(rows)
+    })
+  );
+  
 
 export default orderRouter;

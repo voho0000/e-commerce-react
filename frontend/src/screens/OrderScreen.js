@@ -9,8 +9,10 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Button from 'react-bootstrap/Button';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { toast } from 'react-toastify';
 
 function reducer(state, action) {
     switch (action.type) {
@@ -20,6 +22,14 @@ function reducer(state, action) {
             return { ...state, loading: false, order: action.payload, error: '' };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
+        case 'PAY_REQUEST':
+            return { ...state, loadingPay: true };
+        case 'PAY_SUCCESS':
+            return { ...state, loadingPay: false, order: action.payload, successPay: true };
+        case 'PAY_FAIL':
+            return { ...state, loadingPay: false };
+        case 'PAY_RESET':
+            return { ...state, loadingPay: false, successPay: false };
         default:
             return state;
     }
@@ -32,11 +42,38 @@ export default function OrderScreen() {
     const { id: orderId } = params;
     const navigate = useNavigate();
 
-    const [{ loading, error, order }, dispatch] = useReducer(reducer, {
-        loading: true,
-        order: {},
-        error: '',
-    });
+    const [{ loading, error, order, successPay, loadingPay }, dispatch] =
+        useReducer(reducer, {
+            loading: true,
+            order: {},
+            error: '',
+            successPay: false,
+            loadingPay: false,
+        });
+
+    const paymentHandler = async (e) => {
+        e.preventDefault();
+        order.ispaid = true;
+        try {
+            dispatch({ type: 'PAY_REQUEST' });
+            const { data } = await axios.put(`/api/orders/${order.id}/pay`,
+                order,
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                });
+            dispatch({ type: 'PAY_SUCCESS', payload: data, successPay: true});
+            //localStorage.setItem('userInfo', JSON.stringify(data));
+        } catch (err) {
+            toast.error(getError(err));
+        }
+    }
+
+
+
+
+    function onError(err) {
+        toast.error(getError(err));
+    }
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -54,11 +91,15 @@ export default function OrderScreen() {
 
         if (!userInfo) {
             return navigate('/login');
-        }
-        if (!order.id || (order.id && order.id !== orderId)) {
+        };
+        if (!order.id || successPay || (order.id && order.id !== orderId)) {
             fetchOrder();
+            if (successPay) {
+                dispatch({ type: 'PAY_RESET' });
+            }
         }
-    }, [userInfo, orderId, navigate]);
+    }, [userInfo, orderId, navigate, successPay, dispatch]);
+
     return loading ? (
         <LoadingBox></LoadingBox>
     ) : error ? (
@@ -167,6 +208,20 @@ export default function OrderScreen() {
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
+                                {!order.isPaid && (
+                                    <ListGroup.Item>
+
+                                        <div>
+                                            <Button
+                                                onClick={paymentHandler}
+                                            >
+                                                <strong>  Pay  </strong>
+                                            </Button>
+                                        </div>
+
+                                        {loadingPay && <LoadingBox></LoadingBox>}
+                                    </ListGroup.Item>
+                                )}
                             </ListGroup>
                         </Card.Body>
                     </Card>

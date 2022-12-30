@@ -119,3 +119,7 @@ Future modification:
     2. create order create api
     3. modify name to match database schema
     4. **Problem: infinite looping while add order in useEffect dependency array(Unsolved)**
+        - temporary solution: remove order from useEffect dependency array.
+23. Pay Order By a button
+    1. create pay order api in backend
+    2. create pay button and handler

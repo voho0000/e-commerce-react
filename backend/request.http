@@ -35,3 +35,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiO
 ###
 GET http://localhost:8000/api/orders/11
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ0ZXN0OSIsImVtYWlsIjoidGVzdDlAZXhhbXBsZS5jb20iLCJpYXQiOjE2NzIzMzQxNDAsImV4cCI6MTY3NDkyNjE0MH0._36lvdxal7AdPSEEfT97cqSq1yM7HX5R2pKMWkCFk0I
+
+###
+GET http://localhost:8000/api/orders/11/pay
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ0ZXN0OSIsImVtYWlsIjoidGVzdDlAZXhhbXBsZS5jb20iLCJpYXQiOjE2NzIzMzQxNDAsImV4cCI6MTY3NDkyNjE0MH0._36lvdxal7AdPSEEfT97cqSq1yM7HX5R2pKMWkCFk0I
+
+###
+
+PUT http://localhost:8000/api/orders/11/pay
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ0ZXN0OSIsImVtYWlsIjoidGVzdDlAZXhhbXBsZS5jb20iLCJpYXQiOjE2NzIzMzQxNDAsImV4cCI6MTY3NDkyNjE0MH0._36lvdxal7AdPSEEfT97cqSq1yM7HX5R2pKMWkCFk0I
+content-type: application/json
+
+{
+    "id":0,
+    "ispaid":true
+}

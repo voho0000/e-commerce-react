@@ -22,6 +22,7 @@ export default function PaymentMethodScreen() {
             navigate('/shipping');
         }
     }, [shipping_address, navigate]);
+    
     const submitHandler = (e) => {
         e.preventDefault();
         ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName });
