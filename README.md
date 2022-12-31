@@ -154,3 +154,10 @@ Future modification:
     1. create products list ui
     2. implement backend api
     3. fetch data
+31. Create Product and Edit Product
+    1. create products button
+    2. implement backend api
+    3. handle on click
+    4. create edit button
+    5. create edit product ui
+    6. dispaly product info in the input boxes

@@ -18,3 +18,10 @@ SET featured = ROUND(random());
 
 alter table product 
 rename column launch_date to created_time;
+
+alter table product 
+add column brand varchar;
+
+CREATE SEQUENCE product_id_seq OWNED BY product.id;
+SELECT setval('product_id_seq', coalesce(max(id), 0) + 1, false) FROM member;
+ALTER TABLE product ALTER COLUMN id SET DEFAULT nextval('product_id_seq');

@@ -23,8 +23,9 @@ export default class ProductRepo {
 
     static async findById(id) {
         try {
-            const data = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
-            return data
+            var {rows} = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
+            rows = rows[0]
+            return rows
         } catch (err) {
             console.log(err)
         }
@@ -186,6 +187,22 @@ export default class ProductRepo {
         try {
             var { rows } = await pool.query(`SELECT count(*) from product `)
             rows = rows[0].count
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async createProduct(p) {
+        try {
+            await pool.query(`INSERT INTO product (name, image_url, price, category,
+            brand, countinstock, rating, num_reviews, description, created_time) 
+                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp)`,
+                [p.name, p.image_url, p.price, p.category,
+                    p.brand, p.countinstock, p.rating, p.num_reviews, p.description])
+            var { rows } = await pool.query(`SELECT * FROM product
+                WHERE id = (SELECT MAX(id) FROM product);`);
+            rows = rows[0]
             return rows
         } catch (err) {
             console.log(err)

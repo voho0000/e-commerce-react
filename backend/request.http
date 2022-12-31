@@ -71,3 +71,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm5hbWUiO
 ###
 GET http://localhost:8000/api/products/admin
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkJhc2lyIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzYWRtaW4iOjEsImlhdCI6MTY3MjQ5NTUwMCwiZXhwIjoxNjc1MDg3NTAwfQ.5nsUp9OPMVmLgbFewXPJ5VzFwFCcCjGpxsdf06PHGKA
+
+###
+GET http://localhost:8000/api/products/27

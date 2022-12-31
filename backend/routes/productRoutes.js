@@ -15,6 +15,29 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 
+productRouter.post(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = {
+      name: 'sample name ' + Date.now(),
+      image_url: '/images/p1.jpg',
+      price: 0,
+      category: 'sample category',
+      brand: 'sample brand',
+      countinstock: 0,
+      rating: 0,
+      num_reviews: 0,
+      description: 'sample description',
+    };
+    const product = await ProductRepo.createProduct(newProduct);
+    console.log(product);
+    //res.send({ message: 'Product Created', product });
+  })
+);
+
+
 productRouter.get(
   '/admin',
   isAuth,
@@ -24,9 +47,7 @@ productRouter.get(
     const page = query.page ? query.page : 1;
     const pageSize = query.pageSize ? query.pageSize : PAGE_SIZE;
     const products = await ProductRepo.findByPage(query)
-    console.log(products)
     const countProducts = await ProductRepo.countProductAll();
-    console.log(countProducts)
     res.send({
       products,
       countProducts,
@@ -70,14 +91,9 @@ productRouter.get(
 
 productRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
-
   const product = await ProductRepo.findById(id);
+  res.send(product);
 
-  if (product) {
-    res.send(product);
-  } else {
-    res.sendStatus(404);
-  }
 });
 
 
