@@ -13,7 +13,6 @@ export default class ProductRepo {
     static async getCategories() {
         try {
             const { rows } = await pool.query('SELECT distinct(category) FROM product;');
-            console.log(rows)
             let categories = rows.map(({ category }) => category)
             return categories
         } catch (err) {
@@ -44,7 +43,6 @@ export default class ProductRepo {
 
     static async filterProduct(query) {
         try {
-            console.log(query);
             const PAGE_SIZE = 3;
             const pageSize = query.pageSize ? query.pageSize : PAGE_SIZE;
             const page = query.page ? query.page : 1;
@@ -97,6 +95,8 @@ export default class ProductRepo {
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ${sortOrder}
                 LIMIT ${limit} OFFSET ${offset} ;
                 `;
+
+            console.log(finalquery)
             
             const {rows} =await pool.query(finalquery)
             return rows
@@ -142,6 +142,7 @@ export default class ProductRepo {
                 `;  
             
             var {rows} = await pool.query(countquery);
+            console.log(countquery)
             const countProducts = Number(rows[0].count);
             return countProducts
 

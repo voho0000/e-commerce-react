@@ -139,3 +139,10 @@ Future modification:
     1. show filters
     2. create api for searching products
     3. display results
+    4. unsolve: filter problem 
+        - same created_time of products
+        - condition disappear
+28. Create Admin Menu
+    1. define protected route component
+    2. define admin route component
+    3. add menu for admin in header

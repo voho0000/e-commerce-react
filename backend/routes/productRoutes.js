@@ -34,8 +34,10 @@ productRouter.get(
     const page = query.page ? Number(query.page) : 1;
     const products = await ProductRepo.filterProduct(query);
     const countProducts = await ProductRepo.countProduct(query);
+    console.log(pageSize)
+    console.log(page)
+    console.log(countProducts )
     console.log(products)
-    console.log(countProducts)
     res.send({      
       products,
       countProducts,

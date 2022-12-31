@@ -37,16 +37,16 @@ const reducer = (state, action) => {
 
 const prices = [
     {
-        name: '$1 to $50',
-        value: '1-50',
+        name: '$1 to $10000',
+        value: '1-10000',
     },
     {
-        name: '$51 to $200',
-        value: '51-200',
+        name: '$10001 to $30000',
+        value: '10001-30000',
     },
     {
-        name: '$201 to $1000',
-        value: '201-1000',
+        name: '$30001 to $50000',
+        value: '30001-50000',
     },
 ];
 
@@ -82,7 +82,6 @@ export default function SearchScreen() {
     const rating = sp.get('rating') || 'all';
     const order = sp.get('order') || 'newest';
     const page = sp.get('page') || 1;
-
     const [{ loading, error, products, pages, countProducts }, dispatch] =
         useReducer(reducer, {
             loading: true,
@@ -91,8 +90,11 @@ export default function SearchScreen() {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
+            try {    
+                console.log(search) 
+                console.log(category)           
                 const { data } = await axios.get(
+                    
                     `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
                 );
                 dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -267,7 +269,7 @@ export default function SearchScreen() {
                                         className="mx-1"
                                         to={{
                                             pathname: "/search",
-                                            search: getFilterUrl({ page: x + 1 }).substring(7),
+                                            search: getFilterUrl({ page: x + 1 }),
                                           }}
                                     >
                                         <Button
