@@ -1,7 +1,9 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import OrderRepo from '../repos/order-repo.js';
-import { isAuth } from '../utils.js';
+import UserRepo from '../repos/user-repo.js';
+import ProductRepo from '../repos/product-repo.js';
+import { isAuth, isAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
 orderRouter.post(
@@ -17,14 +19,41 @@ orderRouter.post(
 );
 
 orderRouter.get(
+    '/summary',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+        console.log(req.user)
+        const users = await UserRepo.countUserNum()
+        const orders =  await OrderRepo.countOrderNum()
+        const dailyOrders = await OrderRepo.countDailyOrderNum()
+        const productCategories = await ProductRepo.countProductCategories()
+        console.log(productCategories)
+        res.send({ users, orders, dailyOrders, productCategories });
+    })
+)
+/*
+orderRouter.get(
+    '/summary',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+
+
+        res.send({ users, orders, dailyOrders, productCategories });
+    })
+);
+*/
+
+orderRouter.get(
     '/mine',
     isAuth,
     expressAsyncHandler(async (req, res) => {
-    const orders = await OrderRepo.findByUser(req.user.id);
-    res.send(orders);
+        const orders = await OrderRepo.findByUser(req.user.id);
+        res.send(orders);
     })
-  );
-  
+);
+
 
 orderRouter.get(
     '/:id',
@@ -47,7 +76,7 @@ orderRouter.put(
         const rows = await OrderRepo.updateOrderPay(order)
         res.send(rows)
     })
-  );
-  
+);
+
 
 export default orderRouter;

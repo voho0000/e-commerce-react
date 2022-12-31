@@ -58,4 +58,15 @@ export default class UserRepo {
             console.log(err)
         }
     }
+
+    static async countUserNum(){
+        try{
+            var { rows } = await pool.query( `SELECT COUNT(*) as num_users FROM member;`)
+            rows = rows[0]
+            return rows
+          
+        } catch {
+            console.log(err)
+        }
+    }
 }

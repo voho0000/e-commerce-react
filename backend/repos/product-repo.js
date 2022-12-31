@@ -150,6 +150,20 @@ export default class ProductRepo {
             console.log(err)
         }
     }
+
+
+    static async countProductCategories() {
+        try {
+            const { rows } = await pool.query(`SELECT category, COUNT(*) as count
+                FROM product
+                GROUP BY category;`)
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+  
 }
 
 

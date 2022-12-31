@@ -33,7 +33,7 @@ export default class OrderRepo {
         }
     }
 
-    static async findByUser(userId){
+    static async findByUser(userId) {
         try {
             var { rows } = await pool.query(`SELECT * FROM orders WHERE user_id = $1;`, [userId]);
             /*
@@ -47,7 +47,7 @@ export default class OrderRepo {
             return rows
         } catch (err) {
             console.log(err)
-        }  
+        }
     }
 
     static async findById(orderId) {
@@ -77,6 +77,34 @@ export default class OrderRepo {
         newOrder.shipping_address = rows
         return newOrder
     }
+
+    static async countOrderNum() {
+        try {
+            var { rows } = await pool.query(`SELECT COUNT(*) as num_orders, SUM(total_price) as total_sales
+            FROM orders;`)
+            rows = rows[0]
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async countDailyOrderNum() {
+        try {
+            const { rows } = await pool.query(`SELECT
+            to_char(date_trunc('day', create_time), 'YYYY-MM-DD') as date,
+            COUNT(*) as orders,
+            SUM(total_price) as sales
+                FROM orders
+                GROUP BY date
+                ORDER BY date ASC;`)
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
 }
 /*
 'select id from orders where $1 = max($1)',[userID]
