@@ -41,7 +41,7 @@ function Product({ product }) {
         <Link to={`/product/${product.id}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
+        <Rating rating={product.rating} num_reviews={product.num_reviews} />
         <Card.Text>${product.price}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>

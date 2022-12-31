@@ -57,3 +57,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm5hbWUiO
 
 ###
 GET http://localhost:8000/api/products/categories
+
+###
+GET http://localhost:8000/api/products/testquery
+
+###
+GET http://localhost:8000/api/products/search?category=Phone&query=one&price=all&rating=all&order=newest&page=1
