@@ -161,3 +161,6 @@ Future modification:
     4. create edit button
     5. create edit product ui
     6. dispaly product info in the input boxes
+32. Implement Update Product
+    1. create edit product backend api
+    2. handle update click

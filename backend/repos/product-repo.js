@@ -23,6 +23,7 @@ export default class ProductRepo {
 
     static async findById(id) {
         try {
+            console.log(id)
             var {rows} = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
             rows = rows[0]
             return rows
@@ -196,14 +197,24 @@ export default class ProductRepo {
     static async createProduct(p) {
         try {
             await pool.query(`INSERT INTO product (name, image_url, price, category,
-            brand, countinstock, rating, num_reviews, description, created_time) 
-                VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp)`,
-                [p.name, p.image_url, p.price, p.category,
-                    p.brand, p.countinstock, p.rating, p.num_reviews, p.description])
-            var { rows } = await pool.query(`SELECT * FROM product
-                WHERE id = (SELECT MAX(id) FROM product);`);
-            rows = rows[0]
-            return rows
+                brand, countinstock, rating, num_reviews, description, created_time) 
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp)`,
+                    [p.name, p.image_url, p.price, p.category,
+                        p.brand, p.countinstock, p.rating, p.num_reviews, p.description]);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async updateProduct(p) {
+        try {
+            await pool.query(
+                `UPDATE product
+                    SET name = $1, image_url = $2, price = $3, category = $4, brand = $5,
+                        countinstock = $6, rating = $7, num_reviews = $8, description = $9
+                        WHERE id = $10`,
+                [p.name, p.image_url, p.price, p.category, p.brand, p.countinstock, 
+                    p.rating, p.num_reviews, p.description,  p.id]);   
         } catch (err) {
             console.log(err)
         }
