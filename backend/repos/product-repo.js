@@ -1,5 +1,5 @@
 import pool from '../pool.js'
-
+const PAGE_SIZE = 3;
 export default class ProductRepo {
     static async getProducts() {
         try {
@@ -43,7 +43,6 @@ export default class ProductRepo {
 
     static async filterProduct(query) {
         try {
-            const PAGE_SIZE = 3;
             const pageSize = query.pageSize ? query.pageSize : PAGE_SIZE;
             const page = query.page ? query.page : 1;
             const category = query.category ? query.category : '';
@@ -157,6 +156,36 @@ export default class ProductRepo {
             const { rows } = await pool.query(`SELECT category, COUNT(*) as count
                 FROM product
                 GROUP BY category;`)
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async findByPage(query) {
+        try {
+            const pageSize = query.pageSize ? query.pageSize : PAGE_SIZE;
+            const page = query.page ? query.page : 1;
+
+            const offset = pageSize * (page - 1);
+            const limit = pageSize;
+
+            const finalquery = `
+                SELECT * FROM product order by id asc
+                LIMIT ${limit} OFFSET ${offset} ;
+                `;
+
+            const { rows } = await pool.query(finalquery)
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }   
+
+    static async countProductAll() {
+        try {
+            var { rows } = await pool.query(`SELECT count(*) from product `)
+            rows = rows[0].count
             return rows
         } catch (err) {
             console.log(err)

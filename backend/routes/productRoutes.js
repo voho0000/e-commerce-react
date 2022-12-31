@@ -1,8 +1,10 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import ProductRepo from '../repos/product-repo.js';
+import { isAuth, isAdmin } from '../utils.js';
 
 const productRouter = express.Router();
+const PAGE_SIZE = 3;
 
 productRouter.get('/', async (req, res) => {
   // Run a query to get all users
@@ -13,14 +15,24 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 
-
 productRouter.get(
-  '/testquery',
+  '/admin',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const testquery = await ProductRepo.testQuery();
-    const test= `aaa`+`bbb`
-    //console.log(testquery)
-    res.send({"test":test})
+    const { query } = req;
+    const page = query.page ? query.page : 1;
+    const pageSize = query.pageSize ? query.pageSize : PAGE_SIZE;
+    const products = await ProductRepo.findByPage(query)
+    console.log(products)
+    const countProducts = await ProductRepo.countProductAll();
+    console.log(countProducts)
+    res.send({
+      products,
+      countProducts,
+      page,
+      pages: Math.ceil(countProducts / pageSize),
+    });
   })
 );
 
