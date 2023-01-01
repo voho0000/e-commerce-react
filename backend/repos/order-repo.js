@@ -107,10 +107,10 @@ export default class OrderRepo {
     static async listOrder() {
         try {
             var { rows } = await pool.query(
-                `SELECT orders.*, member.name
-                    FROM orders
-                        JOIN member ON orders.user_id = member.id
-                            ORDER BY create_time DESC;`);
+                `SELECT review.*, name 
+                FROM review JOIN member on review.user_id = member.id 
+                WHERE product_id = $1  
+                ORDER BY review_date DESC`);
             return rows
         } catch (err) {
             console.log(err)

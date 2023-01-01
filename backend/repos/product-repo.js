@@ -23,7 +23,7 @@ export default class ProductRepo {
 
     static async findById(id) {
         try {
-            var {rows} = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
+            var { rows } = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
             rows = rows[0]
             return rows
         } catch (err) {
@@ -83,8 +83,8 @@ export default class ProductRepo {
                 SELECT * FROM product where discontinue_date IS NULL
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ${sortOrder}
                 LIMIT ${limit} OFFSET ${offset} ;
-                `;            
-            const {rows} =await pool.query(finalquery)
+                `;
+            const { rows } = await pool.query(finalquery)
             return rows
 
         } catch {
@@ -124,9 +124,9 @@ export default class ProductRepo {
             const countquery = `
                 SELECT count(*) FROM product where discontinue_date IS NULL
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ;
-                `;  
-            
-            var {rows} = await pool.query(countquery);
+                `;
+
+            var { rows } = await pool.query(countquery);
             const countProducts = Number(rows[0].count);
             return countProducts
 
@@ -165,7 +165,7 @@ export default class ProductRepo {
         } catch (err) {
             console.log(err)
         }
-    }   
+    }
 
     static async countProductAll() {
         try {
@@ -182,8 +182,8 @@ export default class ProductRepo {
             await pool.query(`INSERT INTO product (name, image_url, price, category,
                 brand, countinstock, rating, num_reviews, description, created_time) 
                     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp);`,
-                    [p.name, p.image_url, p.price, p.category,
-                        p.brand, p.countinstock, p.rating, p.num_reviews, p.description]);
+                [p.name, p.image_url, p.price, p.category,
+                p.brand, p.countinstock, p.rating, p.num_reviews, p.description]);
         } catch (err) {
             console.log(err)
         }
@@ -194,10 +194,9 @@ export default class ProductRepo {
             await pool.query(
                 `UPDATE product
                     SET name = $1, image_url = $2, price = $3, category = $4, brand = $5,
-                        countinstock = $6, rating = $7, num_reviews = $8, description = $9
-                        WHERE id = $10 ;`,
-                [p.name, p.image_url, p.price, p.category, p.brand, p.countinstock, 
-                    p.rating, p.num_reviews, p.description,  p.id]);   
+                        countinstock = $6, description = $7
+                        WHERE id = $8 ;`,
+                [p.name, p.image_url, p.price, p.category, p.brand, p.countinstock, p.description, p.id]);
         } catch (err) {
             console.log(err)
         }
@@ -208,7 +207,7 @@ export default class ProductRepo {
             await pool.query(
                 `UPDATE product
                     SET image_url = $1 WHERE id = $2 ;`,
-                [image_url, productId]);   
+                [image_url, productId]);
         } catch (err) {
             console.log(err)
         }
@@ -219,14 +218,39 @@ export default class ProductRepo {
             await pool.query(
                 `UPDATE product
                     SET discontinue_date = current_timestamp WHERE id = $1 ;`,
-                [productId]);   
+                [productId]);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async updateProductReview(productId) {
+        try {
+            // update review number of a product
+            await pool.query(
+                `UPDATE product
+                    SET num_reviews = (SELECT COUNT(*) FROM review WHERE review.product_id = product.id)
+                    WHERE id = $1;`,
+                [productId]);
+            // update rating of a prodcut
+            await pool.query(
+                `UPDATE product
+                    SET rating = (SELECT AVG(rating) FROM review WHERE review.product_id = product.id)
+                    WHERE id = $1;`,
+                [productId]);
+
+            let { rows } = await pool.query(
+                `SELECT * FROM product WHERE id = $1;`,
+                [productId]);
+            rows = rows[0];
+            return rows
+
         } catch (err) {
             console.log(err)
         }
     }
 
 
-  
 }
 
 

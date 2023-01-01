@@ -1,6 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import ProductRepo from '../repos/product-repo.js';
+import ReviewRepo from '../repos/review-repo.js';
 import { isAuth, isAdmin } from '../utils.js';
 import fs from 'fs';
 
@@ -70,15 +71,16 @@ productRouter.get(
     const countProducts = await ProductRepo.countProduct(query);
     console.log(pageSize)
     console.log(page)
-    console.log(countProducts )
+    console.log(countProducts)
     console.log(products)
-    res.send({      
+    res.send({
       products,
       countProducts,
       page,
-      pages: Math.ceil(countProducts / pageSize),});
+      pages: Math.ceil(countProducts / pageSize),
+    });
   })
-  );
+);
 
 
 productRouter.get(
@@ -114,9 +116,9 @@ productRouter.put(
       product.description = req.body.description;
       await ProductRepo.updateProduct(product)
       // move image from backend/images/ to frontend/public/images/
-      fs.rename('.'+product.image_url, '../frontend/public/images/'+product.image_url.substring(8), function(err) {
-        if ( err ) console.log('ERROR: ' + err);
-    });
+      fs.rename('.' + product.image_url, '../frontend/public/images/' + product.image_url.substring(8), function (err) {
+        if (err) console.log('ERROR: ' + err);
+      });
       res.send({ message: 'Product Updated' });
     } else {
       res.status(404).send({ message: 'Product Not Found' });
@@ -135,15 +137,39 @@ productRouter.delete(
   })
 );
 
-/*
+productRouter.post(
+  '/:id/reviews',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await ProductRepo.findById(productId);
+    const review = {
+      product_id: productId,
+      user_id: req.user.id,
+      rating: Number(req.body.rating),
+      comment: req.body.comment,
+    };
+    await ReviewRepo.createReview(review)
+    const reviews = await ReviewRepo.findAll(productId)
+    const updatedProduct = await ProductRepo.updateProductReview(productId)
+    res.status(201).send({
+      message: 'Review Created',
+      reviews,
+      product: updatedProduct
+    });
 
+  })
+);
 
+productRouter.get(
+  '/:id/reviews',
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const reviews = await ReviewRepo.findAll(productId)
+    console.log(reviews)
+    res.send(reviews);
 
-    // 一個傳符合的商品
-    // 一個傳符合的商品數
-    // 一個傳現在第幾頁 （沒傳就當第一頁）
-    // 一個傳一頁page包含最多幾樣商品
-
-*/
+  })
+);
 
 export default productRouter;

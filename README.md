@@ -196,3 +196,7 @@ Future modification:
     3. dispaly product info in the input boxes
     4. implement backend api
     5. handle edit click
+40. Review Orders
+    1. create submit review form
+    2. handle submit
+    3. implement backend api for review
