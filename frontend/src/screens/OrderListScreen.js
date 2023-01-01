@@ -82,7 +82,6 @@ export default function OrderListScreen() {
                 <td>{order.create_time.substring(0, 10)}</td>
                 <td>{order.total_price}</td>
                 <td>{order.ispaid ? order.paid_time.substring(0, 10) : 'No'}</td>
-                <td>{order.ispaid ? order.paid_time.substring(0, 10) : 'No'}</td>
                 <td>
                   {order.isdelivered
                     ? order.delivered_time.substring(0, 10)

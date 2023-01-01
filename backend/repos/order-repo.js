@@ -116,7 +116,12 @@ export default class OrderRepo {
         }
     }
 
-
+    static async updateOrderDelivery(orderId) {
+        await pool.query(
+            `UPDATE orders SET isdelivered = true, delivered_time=current_timestamp 
+                WHERE id = $1;`,
+                [orderId])
+    }
 }
 /*
 'select id from orders where $1 = max($1)',[userID]

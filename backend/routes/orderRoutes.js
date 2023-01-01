@@ -45,18 +45,6 @@ orderRouter.get(
         res.send({ users, orders, dailyOrders, productCategories });
     })
 )
-/*
-orderRouter.get(
-    '/summary',
-    isAuth,
-    isAdmin,
-    expressAsyncHandler(async (req, res) => {
-
-
-        res.send({ users, orders, dailyOrders, productCategories });
-    })
-);
-*/
 
 orderRouter.get(
     '/mine',
@@ -90,6 +78,16 @@ orderRouter.put(
         res.send(rows)
     })
 );
+
+orderRouter.put(
+    '/:id/deliver',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+      const orderId = req.params.id;
+      await OrderRepo.updateOrderDelivery(orderId);
+        res.send({ message: `Order ${orderId} Delivered` });
+    })
+  );
 
 
 export default orderRouter;
