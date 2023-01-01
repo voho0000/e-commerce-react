@@ -124,6 +124,16 @@ productRouter.put(
   })
 );
 
+productRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    await ProductRepo.deleteProduct(productId);
+    res.send({ message: `Product ${productId} Deleted` });
+  })
+);
 
 /*
 

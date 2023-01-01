@@ -3,7 +3,7 @@ const PAGE_SIZE = 3;
 export default class ProductRepo {
     static async getProducts() {
         try {
-            const { rows } = await pool.query('SELECT * FROM product ORDER BY id ASC;');
+            const { rows } = await pool.query('SELECT * FROM product where discontinue_date IS NULL ORDER BY id ASC;');
             return rows
         } catch (err) {
             console.log(err)
@@ -12,7 +12,7 @@ export default class ProductRepo {
 
     static async getCategories() {
         try {
-            const { rows } = await pool.query('SELECT distinct(category) FROM product;');
+            const { rows } = await pool.query('SELECT distinct(category) FROM product where discontinue_date IS NULL;');
             let categories = rows.map(({ category }) => category)
             return categories
         } catch (err) {
@@ -80,7 +80,7 @@ export default class ProductRepo {
             const limit = pageSize;
 
             const finalquery = `
-                SELECT * FROM product where true
+                SELECT * FROM product where discontinue_date IS NULL
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ${sortOrder}
                 LIMIT ${limit} OFFSET ${offset} ;
                 `;            
@@ -122,7 +122,7 @@ export default class ProductRepo {
                     : '';
 
             const countquery = `
-                SELECT count(*) FROM product where true
+                SELECT count(*) FROM product where discontinue_date IS NULL
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ;
                 `;  
             
@@ -139,7 +139,7 @@ export default class ProductRepo {
     static async countProductCategories() {
         try {
             const { rows } = await pool.query(`SELECT category, COUNT(*) as count
-                FROM product
+                FROM product where discontinue_date IS NULL
                 GROUP BY category;`)
             return rows
         } catch (err) {
@@ -156,7 +156,7 @@ export default class ProductRepo {
             const limit = pageSize;
 
             const finalquery = `
-                SELECT * FROM product order by id asc
+                SELECT * FROM product where discontinue_date IS NULL order by id asc
                 LIMIT ${limit} OFFSET ${offset} ;
                 `;
 
@@ -169,7 +169,7 @@ export default class ProductRepo {
 
     static async countProductAll() {
         try {
-            var { rows } = await pool.query(`SELECT count(*) from product `)
+            var { rows } = await pool.query(`SELECT count(*) from product where discontinue_date IS NULL; `)
             rows = rows[0].count
             return rows
         } catch (err) {
@@ -181,7 +181,7 @@ export default class ProductRepo {
         try {
             await pool.query(`INSERT INTO product (name, image_url, price, category,
                 brand, countinstock, rating, num_reviews, description, created_time) 
-                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp)`,
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp);`,
                     [p.name, p.image_url, p.price, p.category,
                         p.brand, p.countinstock, p.rating, p.num_reviews, p.description]);
         } catch (err) {
@@ -195,7 +195,7 @@ export default class ProductRepo {
                 `UPDATE product
                     SET name = $1, image_url = $2, price = $3, category = $4, brand = $5,
                         countinstock = $6, rating = $7, num_reviews = $8, description = $9
-                        WHERE id = $10`,
+                        WHERE id = $10 ;`,
                 [p.name, p.image_url, p.price, p.category, p.brand, p.countinstock, 
                     p.rating, p.num_reviews, p.description,  p.id]);   
         } catch (err) {
@@ -207,8 +207,19 @@ export default class ProductRepo {
         try {
             await pool.query(
                 `UPDATE product
-                    SET image_url = $1 WHERE id = $2`,
+                    SET image_url = $1 WHERE id = $2 ;`,
                 [image_url, productId]);   
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async deleteProduct(productId) {
+        try {
+            await pool.query(
+                `UPDATE product
+                    SET discontinue_date = current_timestamp WHERE id = $1 ;`,
+                [productId]);   
         } catch (err) {
             console.log(err)
         }
