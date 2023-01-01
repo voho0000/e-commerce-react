@@ -69,4 +69,9 @@ export default class UserRepo {
             console.log(err)
         }
     }
+
+    static async findAll(){
+        const { rows } = await pool.query( `SELECT * FROM member;`)
+        return rows
+    }
 }

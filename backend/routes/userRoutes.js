@@ -1,11 +1,21 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
-import { isAuth, generateToken } from '../utils.js';
+import { isAuth, isAdmin, generateToken } from '../utils.js';
 import UserRepo from '../repos/user-repo.js';
 
 
 const userRouter = express.Router();
+
+userRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const users = await UserRepo.findAll()
+      res.send(users);
+    })
+  );
 
 userRouter.post(
     '/signin',
