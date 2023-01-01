@@ -88,7 +88,7 @@ userRouter.put(
                 user.password = bcrypt.hashSync(req.body.password, 8);
             }
             user.token = generateToken(user)
-            const updatedUser = await UserRepo.updateUserInfo(user);
+            const updatedUser = await UserRepo.updateUserProfileInfo(user);
             console.log(updatedUser)
             res.send({
                 id: updatedUser.id,
@@ -103,5 +103,37 @@ userRouter.put(
     })
 );
 
+userRouter.get(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const user = await UserRepo.findById(req.params.id);
+      if (user) {
+        res.send(user);
+      } else {
+        res.status(404).send({ message: 'User Not Found' });
+      }
+    })
+  );
+  
+  userRouter.put(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const user = await UserRepo.findById(req.params.id);
+      if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.isadmin = Number(req.body.isadmin);
+        user.token = generateToken(user);
+        const updatedUser = await UserRepo.updateUserAuth(user);
+        res.send({ message: 'User Updated', user: updatedUser });
+      } else {
+        res.status(404).send({ message: 'User Not Found' });
+      }
+    })
+  );
 
 export default userRouter;

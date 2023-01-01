@@ -47,7 +47,7 @@ export default class UserRepo {
         }
     }
 
-    static async updateUserInfo(user) {
+    static async updateUserProfileInfo(user) {
         try {
             await pool.query(`UPDATE member SET email = $1, name= $2, password=$3, token=$4 WHERE id = $5;`,
                 [user.email, user.name, user.password, user.token, user.id]);
@@ -71,7 +71,19 @@ export default class UserRepo {
     }
 
     static async findAll(){
-        const { rows } = await pool.query( `SELECT * FROM member;`)
+        const { rows } = await pool.query( `SELECT * FROM member ORDER BY id ASC;`)
         return rows
+    }
+
+    static async updateUserAuth(user) {
+        try {
+            await pool.query(`UPDATE member SET email = $1, name= $2, isadmin=$3, token=$4 WHERE id = $5;`,
+                [user.email, user.name, user.isadmin, user.token, user.id]);
+            var { rows } = await pool.query("SELECT * from member where id = $1;", [user.id]);
+            rows = rows[0]
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
