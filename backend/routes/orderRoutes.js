@@ -69,6 +69,7 @@ orderRouter.get(
     })
 );
 
+
 orderRouter.put(
     '/:id/pay',
     isAuth,
@@ -89,5 +90,15 @@ orderRouter.put(
     })
   );
 
+  orderRouter.delete(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const orderId = req.params.id;
+      await OrderRepo.deleteOrder(orderId);
+      res.send({ message: `Order ${orderId} Deleted` });
+    })
+  );
 
 export default orderRouter;

@@ -116,10 +116,9 @@ export default class OrderRepo {
         }
     }
 
-    static async updateOrderDelivery(orderId) {
+    static async deleteOrder(orderId) {
         await pool.query(
-            `UPDATE orders SET isdelivered = true, delivered_time=current_timestamp 
-                WHERE id = $1;`,
+            `DELETE FROM orders WHERE id = $1;`,
                 [orderId])
     }
 }
