@@ -104,6 +104,18 @@ export default class OrderRepo {
         }
     }
 
+    static async listOrder() {
+        try {
+            var { rows } = await pool.query(
+                `SELECT orders.*, member.name
+                    FROM orders
+                        JOIN member ON orders.user_id = member.id;`);
+            return rows
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
 }
 /*

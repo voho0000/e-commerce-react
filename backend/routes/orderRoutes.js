@@ -6,6 +6,19 @@ import ProductRepo from '../repos/product-repo.js';
 import { isAuth, isAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
+
+
+orderRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const orders = await OrderRepo.listOrder();
+      res.send(orders);
+    })
+  );
+  
+
 orderRouter.post(
     '/',
     // get user id from token
