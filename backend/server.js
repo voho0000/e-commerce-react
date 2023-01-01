@@ -6,6 +6,8 @@ import productRouter from './routes/productRoutes.js';
 import pool from './pool.js'
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
+import uploadRouter from './routes/uploadRoutes.js';
+import fileUpload from 'express-fileupload';
 
 
 /*
@@ -19,13 +21,13 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload({ uploadDir: './images/' }));
 
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
-app.get('/api/keys/paypal', (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID);
-});
+app.use('/api/upload', uploadRouter);
+
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

@@ -147,6 +147,7 @@ Future modification:
     2. define admin route component
     3. add menu for admin in header
 29. Create Dashboard Screen
+    1. npm install react-google-charts
     1. create dashboard ui
     2. implement backend api
     3. connect ui to backend
@@ -164,3 +165,8 @@ Future modification:
 32. Implement Update Product
     1. create edit product backend api
     2. handle update click
+33. Upload Product Image
+    1. npm install express-fileupload (backend)
+    2. npm install fs (backend)
+    3. handle upload file
+    4. implement backend api to upload

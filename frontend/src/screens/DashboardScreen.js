@@ -69,7 +69,7 @@ export default function DashboardScreen() {
                                             ? summary.users.num_users
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text> Users</Card.Text>
+                                    <Card.Text className='fa fa-users'> Users</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -81,7 +81,7 @@ export default function DashboardScreen() {
                                             ? summary.orders.num_orders
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text> Orders</Card.Text>
+                                    <Card.Text className='fa fa-shopping-cart'> Orders</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -94,7 +94,7 @@ export default function DashboardScreen() {
                                             ? summary.orders.total_sales
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text> Orders</Card.Text>
+                                    <Card.Text className="fa fa-money"> Sales</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>

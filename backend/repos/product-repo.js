@@ -3,7 +3,7 @@ const PAGE_SIZE = 3;
 export default class ProductRepo {
     static async getProducts() {
         try {
-            const { rows } = await pool.query('SELECT * FROM product;');
+            const { rows } = await pool.query('SELECT * FROM product ORDER BY id ASC;');
             return rows
         } catch (err) {
             console.log(err)
@@ -23,21 +23,9 @@ export default class ProductRepo {
 
     static async findById(id) {
         try {
-            console.log(id)
             var {rows} = await pool.query('SELECT * FROM product WHERE id = $1;', [id]);
             rows = rows[0]
             return rows
-        } catch (err) {
-            console.log(err)
-        }
-
-
-    }
-
-    static async testQuery() {
-        try {
-            let { rows } = await pool.query(``)
-            console.log(rows)
         } catch (err) {
             console.log(err)
         }
@@ -95,10 +83,7 @@ export default class ProductRepo {
                 SELECT * FROM product where true
                 ${queryFilter} ${categoryFilter} ${ratingFilter} ${priceFilter} ${sortOrder}
                 LIMIT ${limit} OFFSET ${offset} ;
-                `;
-
-            console.log(finalquery)
-            
+                `;            
             const {rows} =await pool.query(finalquery)
             return rows
 
@@ -109,7 +94,6 @@ export default class ProductRepo {
 
     static async countProduct(query) {
         try {
-            console.log(query);
             const category = query.category ? query.category : '';
             const price = query.price ? query.price : '';
             const rating = query.rating ? query.rating : '';
@@ -143,7 +127,6 @@ export default class ProductRepo {
                 `;  
             
             var {rows} = await pool.query(countquery);
-            console.log(countquery)
             const countProducts = Number(rows[0].count);
             return countProducts
 
@@ -219,6 +202,18 @@ export default class ProductRepo {
             console.log(err)
         }
     }
+
+    static async updateImage(image_url, productId) {
+        try {
+            await pool.query(
+                `UPDATE product
+                    SET image_url = $1 WHERE id = $2`,
+                [image_url, productId]);   
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
   
 }

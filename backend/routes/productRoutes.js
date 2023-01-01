@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import ProductRepo from '../repos/product-repo.js';
 import { isAuth, isAdmin } from '../utils.js';
+import fs from 'fs';
 
 const productRouter = express.Router();
 const PAGE_SIZE = 3;
@@ -103,7 +104,6 @@ productRouter.put(
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await ProductRepo.findById(productId);
-    console.log(product)
     if (product) {
       product.name = req.body.name;
       product.price = req.body.price;
@@ -112,8 +112,11 @@ productRouter.put(
       product.brand = req.body.brand;
       product.countinstock = req.body.countinstock;
       product.description = req.body.description;
-      console.log(product)
       await ProductRepo.updateProduct(product)
+      // move image from backend/images/ to frontend/public/images/
+      fs.rename('.'+product.image_url, '../frontend/public/images/'+product.image_url.substring(8), function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+    });
       res.send({ message: 'Product Updated' });
     } else {
       res.status(404).send({ message: 'Product Not Found' });
