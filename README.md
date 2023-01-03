@@ -8,14 +8,14 @@
 `$ git clone https://github.com/voho0000/e-commerce-react.git`
 
 3. Install the dependency packages and start the project
-    - frontend  
+ - frontend  
 ```
 $ cd frontend
 $ npm install
 $ npm start
 ```
 
-    - backend  
+ - backend  
 ```
 $ cd backend
 $ npm install
