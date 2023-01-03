@@ -1,5 +1,31 @@
 # E-commerce
 
+## Installation 
+1. Install [NodeJS](https://nodejs.org/en/)
+
+
+2. Git clone the project  
+`$ git clone https://github.com/voho0000/e-commerce-react.git`
+
+3. Install the dependency packages and start the project
+    - frontend  
+```
+$ cd frontend
+$ npm install
+$ npm start
+```
+
+    - backend  
+```
+$ cd backend
+$ npm install
+$ npm start
+```
+
+4. 
+Go to the port which frontend hosting on ex. port 3000  
+Enter `localhost:3000` on website
+
 ## Reference
 The original version is the following repository:  
 https://github.com/basir/mern-amazona
