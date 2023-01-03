@@ -22,8 +22,7 @@ $ npm install
 $ npm start
 ```
 
-4. 
-Go to the port which frontend hosting on ex. port 3000  
+4. Go to the port which frontend hosting on ex. port 3000  
 Enter `localhost:3000` on website
 
 ## Reference
