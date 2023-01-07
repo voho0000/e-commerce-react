@@ -7,6 +7,7 @@ CREATE TABLE product(
 	price int NOT NULL,
 	image_url VARCHAR NOT NULL,
 	created_time TIMESTAMP NOT NULL,
+    countinstock INT NOT NULL,
 	discontinue_date TIMESTAMP,
     rating INT DEFAULT 0,
     num_reviews INT DEFAULT 0,

@@ -119,13 +119,13 @@ function App() {
                         to="#signout"
                         onClick={signoutHandler}
                       >
-                        Sign out
+                        登出
                       </Link>
 
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to='/signin'>
-                      Sign In
+                      登入
                     </Link>
                   )}
 

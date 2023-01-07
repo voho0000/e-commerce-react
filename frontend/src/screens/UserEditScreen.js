@@ -92,9 +92,9 @@ export default function UserEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit User ${userId}</title>
+        <title>編輯使用者</title>
       </Helmet>
-      <h1>Edit User {userId}</h1>
+      <h1>編輯使用者 {userId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -103,7 +103,7 @@ export default function UserEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>姓名</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -111,7 +111,7 @@ export default function UserEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>信箱</Form.Label>
             <Form.Control
               value={email}
               type="email"
@@ -124,14 +124,14 @@ export default function UserEditScreen() {
             className="mb-3"
             type="checkbox"
             id="isAdmin"
-            label="isAdmin"
+            label="管理員"
             checked={isadmin}
             onChange={(e) => setIsAdmin(e.target.checked)}
           />
 
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
-              Update
+              更新
             </Button>
             {loadingUpdate && <LoadingBox></LoadingBox>}
           </div>

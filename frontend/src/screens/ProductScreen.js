@@ -130,7 +130,7 @@ function ProductScreen() {
             dispatch({
                 type: 'CREATE_SUCCESS', payload: data.reviews
             });
-            toast.success('Review submitted successfully');
+            toast.success('成功新增評論');
             dispatch({ type: 'REFRESH_PRODUCT', payload: data.product });
             window.scrollTo({
                 behavior: 'smooth',
@@ -195,7 +195,7 @@ function ProductScreen() {
                                             {product.countinstock > 0 ? (
                                                 <Badge bg="success">有存貨</Badge>
                                             ) : (
-                                                <Badge bg="danger">Unavailable</Badge>
+                                                <Badge bg="danger">已售光</Badge>
                                             )}
                                         </Col>
                                     </Row>
@@ -219,7 +219,7 @@ function ProductScreen() {
                 <h2 ref={reviewsRef}>評論</h2>
                 <div className="mb-3">
                     {product.num_reviews === 0 && (
-                        <MessageBox>There is no review</MessageBox>
+                        <MessageBox>目前沒有評論</MessageBox>
                     )}
                 </div>
                 <ListGroup>
@@ -235,20 +235,20 @@ function ProductScreen() {
                 <div className="my-3">
                     {userInfo ? (
                         <form onSubmit={submitHandler}>
-                            <h2>Write a customer review</h2>
+                            <h2>撰寫評論</h2>
                             <Form.Group className="mb-3" controlId="rating">
-                                <Form.Label>Rating</Form.Label>
+                                <Form.Label>評分</Form.Label>
                                 <Form.Select
                                     aria-label="Rating"
                                     value={rating}
                                     onChange={(e) => setRating(e.target.value)}
                                 >
-                                    <option value="">Select...</option>
-                                    <option value="1">1- Poor</option>
-                                    <option value="2">2- Fair</option>
-                                    <option value="3">3- Good</option>
-                                    <option value="4">4- Very good</option>
-                                    <option value="5">5- Excelent</option>
+                                    <option value="">選擇...</option>
+                                    <option value="1">1- 極差</option>
+                                    <option value="2">2- 不佳</option>
+                                    <option value="3">3- 尚可</option>
+                                    <option value="4">4- 尚佳</option>
+                                    <option value="5">5- 極好</option>
                                 </Form.Select>
                             </Form.Group>
                             <FloatingLabel
@@ -266,18 +266,18 @@ function ProductScreen() {
 
                             <div className="mb-3">
                                 <Button disabled={loadingCreateReview} type="submit">
-                                    Submit
+                                    送出
                                 </Button>
                                 {loadingCreateReview && <LoadingBox></LoadingBox>}
                             </div>
                         </form>
                     ) : (
                         <MessageBox>
-                            Please{' '}
+                            請{' '}
                             <Link to={`/signin?redirect=/product/${product.id}`}>
-                                Sign In
+                                登入
                             </Link>{' '}
-                            to write a review
+                            撰寫評論
                         </MessageBox>
                     )}
                 </div>
