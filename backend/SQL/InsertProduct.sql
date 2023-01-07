@@ -1,12 +1,12 @@
 INSERT INTO product (
-	product_name,
-    brand,
+	name,
 	category,
+    brand,
 	description,
 	price,
 	image_url,
-	countInStock,
-	launch_date)
+	countinstock,
+	created_date)
 VALUES
 ('iPhone 13 Pro', 'Phone', 'Apple',
 'A like-new experience. Backed by a one-year satisfaction guarantee. This Renewed Premium product is shipped and sold by Amazon and has been certified by Amazon to work and look like new. With at least 90% battery life, it comes in deluxe, Amazon-branded packaging and is backed by a one-year warranty and technical support.',

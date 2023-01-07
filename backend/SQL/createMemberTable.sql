@@ -4,7 +4,7 @@ CREATE TABLE member (
     name varchar NOT NULL,
     email varchar NOT NULL unique,
     password varchar NOT NULL,
-    isadmin INT NOT NULL DEFAULT 0,
+    isadmin INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE cart_item (

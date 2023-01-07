@@ -6,5 +6,5 @@ CREATE TABLE Review(
 	rating int NOT NULL,
 	comment varchar,
 	image_url varchar,
-	foreign key (product_id) references Product(id) on update cascade on delete cascade,
-	foreign key (user_id) references Member(id) on update cascade on delete cascade);
+	foreign key (product_id) references product(id) on update cascade on delete cascade,
+	foreign key (user_id) references member(id) on update cascade on delete cascade);

@@ -24,6 +24,7 @@ CREATE TABLE purchase_item (
 	name varchar NOT NULL,
 	quantity int NOT NULL, 
 	price int NOT NULL, 
+	image_url varchar NOT NULL,
 	foreign key (order_id) references orders(id) on update cascade on delete cascade,
 	foreign key (product_id) references product(id) on update cascade on delete cascade
 );
