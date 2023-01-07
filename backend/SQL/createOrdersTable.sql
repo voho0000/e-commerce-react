@@ -42,43 +42,26 @@ CREATE TABLE address(
 
 CREATE TABLE shipping_coupon(
 	id SERIAL primary key NOT NULL ,
-	creator_id int,
+	name varchar,
 	price_criteria int default 0,
-	description varchar,
 	start_date DATE,
 	end_date DATE,
 	max_num int,
-	code varchar,
-	foreign key (creator_id) references member(id) on update cascade on delete cascade
+	code varchar
 	);
 
 CREATE TABLE discount_coupon(
 	id SERIAL primary key NOT NULL ,
-	creator_id int,
+	name varchar,
 	price_criteria int default 0,
 	discount_num int,
-	description varchar,
 	start_date DATE,
 	end_date DATE,
 	max_num int,
-	code varchar,
-	foreign key (creator_id) references member(id) on update cascade on delete cascade
+	code varchar
 	);
 
 
-CREATE TABLE event_coupon(
-	id SERIAL primary key NOT NULL ,
-	creator_id int,
-	price_criteria int default 0,
-	discount_rate decimal,
-	description varchar,
-	event varchar,
-	start_date DATE,
-	end_date DATE,
-	max_num int,
-	code varchar,
-	foreign key (creator_id) references member(id) on update cascade on delete cascade
-	);
 
 CREATE TABLE used_shipping_coupon(
 	id SERIAL primary key NOT NULL ,
@@ -96,10 +79,3 @@ CREATE TABLE used_discount_coupon(
 	foreign key (coupon_id) references discount_coupon(id) on update cascade on delete cascade
 	);
 
-CREATE TABLE used_event_coupon(
-	id SERIAL primary key NOT NULL ,
-	coupon_id int NOT NULL,
-	order_id int NOT NULL,
-	foreign key (order_id) references orders(id) on update cascade on delete cascade,	
-	foreign key (coupon_id) references event_coupon(id) on update cascade on delete cascade
-	);

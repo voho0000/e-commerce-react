@@ -144,9 +144,9 @@ export default function ProductEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit Product ${productId}</title>
+        <title>編輯商品 ${productId}</title>
       </Helmet>
-      <h1>Edit Product {productId}</h1>
+      <h1>編輯商品 {productId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -155,7 +155,7 @@ export default function ProductEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>商品名稱</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -163,33 +163,29 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>價格</Form.Label>
             <Form.Control
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="image">
-            <Form.Label>Image File</Form.Label>
-            <Form.Control
-              value={image_url}
-              onChange={(e) => setImage(e.target.value)}
-              required
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label>Upload File</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
+            <Form.Label>上傳檔案</Form.Label>
+            <Form.Control className='my-2' type="file" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox></LoadingBox>}
-            {photo && (
-              <div>
-                <img src={URL.createObjectURL(photo)} alt="product photo" className='img img-responsive' height='200px' />
-              </div>)}
+            {(image_url)?(
+              <img src={image_url} alt="product photo" className='img img-responsive' height='200px' />) 
+              :(
+                photo && (
+                  <div>
+                    <img src={URL.createObjectURL(photo)} alt="product photo" className='img img-responsive' height='200px' />
+                  </div>)
+              )}
 
           </Form.Group>
           <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category</Form.Label>
+            <Form.Label>種類</Form.Label>
             <Form.Control
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -197,7 +193,7 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="brand">
-            <Form.Label>Brand</Form.Label>
+            <Form.Label>品牌</Form.Label>
             <Form.Control
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
@@ -205,7 +201,7 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="countInStock">
-            <Form.Label>Count In Stock</Form.Label>
+            <Form.Label>存貨</Form.Label>
             <Form.Control
               value={countinstock}
               onChange={(e) => setCountInStock(e.target.value)}
@@ -213,7 +209,7 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="description">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>描述</Form.Label>
             <Form.Control
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -222,7 +218,7 @@ export default function ProductEditScreen() {
           </Form.Group>
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
-              Update
+              更新
             </Button>
           </div>
         </Form>

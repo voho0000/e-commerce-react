@@ -137,7 +137,7 @@ export default function SearchScreen() {
             </Helmet>
             <Row>
                 <Col md={3}>
-                    <h3>Department</h3>
+                    <h3>商品種類</h3>
                     <div>
                         <ul>
                             <li>
@@ -161,7 +161,7 @@ export default function SearchScreen() {
                         </ul>
                     </div>
                     <div>
-                        <h3>Price</h3>
+                        <h3>價格</h3>
                         <ul>
                             <li>
                                 <Link
@@ -184,7 +184,7 @@ export default function SearchScreen() {
                         </ul>
                     </div>
                     <div>
-                        <h3>Avg. Customer Review</h3>
+                        <h3>評價</h3>
                         <ul>
                             {ratings.map((r) => (
                                 <li key={r.name}>
@@ -217,7 +217,7 @@ export default function SearchScreen() {
                             <Row className="justify-content-between mb-3">
                                 <Col md={6}>
                                     <div>
-                                        {countProducts === 0 ? 'No' : countProducts} Results
+                                        {countProducts === 0 ? 'No' : countProducts} 個結果
                                         {query !== 'all' && ' : ' + query}
                                         {category !== 'all' && ' : ' + category}
                                         {price !== 'all' && ' : Price ' + price}
@@ -236,17 +236,17 @@ export default function SearchScreen() {
                                     </div>
                                 </Col>
                                 <Col className="text-end">
-                                    Sort by{' '}
+                                    排序方式{' '}
                                     <select
                                         value={order}
                                         onChange={(e) => {
                                             navigate(getFilterUrl({ order: e.target.value }));
                                         }}
                                     >
-                                        <option value="newest">Newest Arrivals</option>
-                                        <option value="lowest">Price: Low to High</option>
-                                        <option value="highest">Price: High to Low</option>
-                                        <option value="toprated">Avg. Customer Reviews</option>
+                                        <option value="newest">最新</option>
+                                        <option value="lowest">價格：由低到高</option>
+                                        <option value="highest">價格：由高到低</option>
+                                        <option value="toprated">評價</option>
                                     </select>
                                 </Col>
                             </Row>

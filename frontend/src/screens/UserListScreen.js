@@ -55,9 +55,9 @@ export default function UserListScreen() {
     return (
         <div>
             <Helmet>
-                <title>Users</title>
+                <title>會員</title>
             </Helmet>
-            <h1>Users</h1>
+            <h1>會員</h1>
             {loading ? (
                 <LoadingBox></LoadingBox>
             ) : error ? (
@@ -66,11 +66,11 @@ export default function UserListScreen() {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>NAME</th>
-                            <th>EMAIL</th>
-                            <th>IS ADMIN</th>
-                            <th>ACTIONS</th>
+                            <th>編號</th>
+                            <th>姓名</th>
+                            <th>信箱</th>
+                            <th>管理員權限</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>

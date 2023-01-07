@@ -53,7 +53,7 @@ export default function DashboardScreen() {
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1>財務報表</h1>
             {loading ? (
                 <LoadingBox />
             ) : error ? (
@@ -69,7 +69,7 @@ export default function DashboardScreen() {
                                             ? summary.users.num_users
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text className='fa fa-users'> Users</Card.Text>
+                                    <Card.Text className='fa fa-users'> 買家</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -81,7 +81,7 @@ export default function DashboardScreen() {
                                             ? summary.orders.num_orders
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text className='fa fa-shopping-cart'> Orders</Card.Text>
+                                    <Card.Text className='fa fa-shopping-cart'> 訂單數</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -94,13 +94,13 @@ export default function DashboardScreen() {
                                             ? summary.orders.total_sales
                                             : 0}
                                     </Card.Title>
-                                    <Card.Text className="fa fa-money"> Sales</Card.Text>
+                                    <Card.Text className="fa fa-money"> 銷售額</Card.Text>
                                 </Card.Body>
                             </Card>
                         </Col>
                     </Row>
                     <div className="my-3">
-                        <h2>Sales</h2>
+                        <h2>日銷售額</h2>
                         {summary.dailyOrders.length === 0 ? (
                             <MessageBox>No Sale</MessageBox>
                         ) : (
@@ -117,7 +117,7 @@ export default function DashboardScreen() {
                         )}
                     </div>
                     <div className="my-3">
-                        <h2>Categories</h2>
+                        <h2>種類比例</h2>
                         {summary.productCategories.length === 0 ? (
                             <MessageBox>No Category</MessageBox>
                         ) : (

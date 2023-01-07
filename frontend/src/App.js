@@ -33,6 +33,8 @@ import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
+import CouponScreen from './screens/CouponScreen';
+import ShippingCouponScreen from './screens/ShippingCouponScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -40,6 +42,15 @@ function App() {
 
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
+    axios.post(`api/cart/`,
+      { cartItems: cart.cartItems },
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+    )
+
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('paymentMethod');
@@ -71,7 +82,7 @@ function App() {
       >
         <ToastContainer position='bottom-center' limit={1} />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
+          <Navbar bg="dark" variant="dark" expand="lg" >
             <Container>
               <Button
                 variant="dark"
@@ -81,14 +92,14 @@ function App() {
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand>Old Man</Navbar.Brand>
+                <Navbar.Brand>老人電商</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
-                    Cart
+                    購物車
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -98,17 +109,17 @@ function App() {
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to='/profile'>
-                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                        <NavDropdown.Item>會員資料</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to='/orderhistory'>
-                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                        <NavDropdown.Item>歷史訂單</NavDropdown.Item>
                       </LinkContainer>
                       <Link
                         className='dropdown-item'
                         to="#signout"
                         onClick={signoutHandler}
                       >
-                        Sign Out
+                        Sign out
                       </Link>
 
                     </NavDropdown>
@@ -117,19 +128,26 @@ function App() {
                       Sign In
                     </Link>
                   )}
+
                   {userInfo && userInfo.isadmin && (
-                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                    <NavDropdown title="管理員" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        <NavDropdown.Item>財務報表</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/products">
-                        <NavDropdown.Item>Products</NavDropdown.Item>
+                        <NavDropdown.Item>商品管理</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                        <NavDropdown.Item>訂單管理</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/users">
-                        <NavDropdown.Item>Users</NavDropdown.Item>
+                        <NavDropdown.Item>使用者管理</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/coupons">
+                        <NavDropdown.Item>折價券管理</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/shippingCoupons">
+                        <NavDropdown.Item>免運券管理</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
                   )}
@@ -145,12 +163,12 @@ function App() {
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
-          <Nav className="flex-column text-white w-100 p-2">
+          <Nav className="flex-column text-white w-100 p-2" >
             <Nav.Item>
-              <strong>Categories</strong>
+              <h3>商品種類</h3>
             </Nav.Item>
             {categories.map((category) => (
-              <Nav.Item key={category}>
+              <Nav.Item class="nav flex-column p-2 " key={category} >
                 <LinkContainer
                   to={{
                     pathname: "/search",
@@ -158,7 +176,7 @@ function App() {
                   }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category}</Nav.Link>
+                  <Nav.Link className='text-white'>{category}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
@@ -248,6 +266,22 @@ function App() {
                 element={
                   <AdminRoute>
                     <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/coupons"
+                element={
+                  <AdminRoute>
+                    <CouponScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/shippingCoupons"
+                element={
+                  <AdminRoute>
+                    <ShippingCouponScreen />
                   </AdminRoute>
                 }
               ></Route>

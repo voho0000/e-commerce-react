@@ -95,7 +95,7 @@ export default function ProductListScreen() {
     }, [page, userInfo, successDelete]);
 
     const createHandler = async () => {
-        if (window.confirm('Are you sure to create?')) {
+        if (window.confirm('確定要新增商品嗎?')) {
             try {
                 dispatch({ type: 'CREATE_REQUEST' });
                 const { data } = await axios.post(
@@ -138,12 +138,12 @@ export default function ProductListScreen() {
         <div>
             <Row>
                 <Col>
-                    <h1>Products</h1>
+                    <h1>商品</h1>
                 </Col>
                 <Col className="col text-end">
                     <div>
                         <Button type="button" onClick={createHandler}>
-                            Create Product
+                            上架商品
                         </Button>
                     </div>
                 </Col>
@@ -161,18 +161,20 @@ export default function ProductListScreen() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>NAME</th>
-                                <th>PRICE</th>
-                                <th>CATEGORY</th>
-                                <th>BRAND</th>
-                                <th>ACTIONS</th>
+                                <th>編號</th>
+                                <th>圖片</th>
+                                <th>名稱</th>
+                                <th>價格</th>
+                                <th>種類</th>
+                                <th>品牌</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             {products.map((product) => (
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
+                                    <td><img class="center" src={product.image_url} style={{height:'60px'}}></img></td>
                                     <td>{product.name}</td>
                                     <td>{product.price}</td>
                                     <td>{product.category}</td>

@@ -22,18 +22,24 @@ export default function SigninScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
 
-  const submitHandler = async(e) => {
+  const submitHandler = async (e) => {
     // prevent refresh website
     e.preventDefault();
-    try{
-      const { data } = await Axios.post('/api/users/signin', {
+    try {
+      var { data } = await Axios.post('/api/users/signin', {
         email,
         password,
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
+      data.cartItems.map((cartItem) => (
+        ctxDispatch({
+          type: 'CART_ADD_ITEM',
+          payload: { ...cartItem },
+        })
+      ));
       navigate(redirect || '/');
-    } catch(err) {
+    } catch (err) {
       toast.error(getError(err));
     }
   }
@@ -51,14 +57,14 @@ export default function SigninScreen() {
         <title>Sign In</title>
       </Helmet>
       <h1 className="my-3">Sign In</h1>
-      <Form onSubmit = {submitHandler}>
+      <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="email" required onChange={(e)=>setEmail(e.target.value)}/>
+          <Form.Control type="email" required onChange={(e) => setEmail(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" required onChange={(e)=>setPassword(e.target.value)}/>
+          <Form.Control type="password" required onChange={(e) => setPassword(e.target.value)} />
         </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign In</Button>

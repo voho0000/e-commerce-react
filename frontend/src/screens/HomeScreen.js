@@ -52,7 +52,7 @@ function HomeScreen() {
             <Helmet>
                 <title>Old Man</title>
             </Helmet>
-            <h1>Featured Products</h1>
+            <h1>熱賣商品</h1>
             <div className="products">
                 {loading ? (
                     <LoadingBox />

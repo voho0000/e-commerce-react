@@ -14,7 +14,11 @@ export default class ReviewRepo {
     static async findAll(productId) {
         try {
             const { rows } = await pool.query(`
-            SELECT review.*, name from review JOIN member on review.user_id = member.id WHERE product_id = $1  ORDER BY review_date DESC;`,
+            SELECT review.*, name 
+                FROM review 
+                JOIN member on review.user_id = member.id 
+                WHERE product_id = $1  
+                ORDER BY review_date DESC;`,
                     [productId]);
 
             return rows

@@ -52,10 +52,10 @@ export default function OrderHistoryScreen() {
   return (
     <div>
       <Helmet>
-        <title>Order History</title>
+        <title>歷史訂單</title>
       </Helmet>
 
-      <h1>Order History</h1>
+      <h1>歷史訂單</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -64,12 +64,12 @@ export default function OrderHistoryScreen() {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th>編號</th>
+              <th>日期</th>
+              <th>總價</th>
+              <th>付款日期</th>
+              <th>運送日期</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +92,7 @@ export default function OrderHistoryScreen() {
                       navigate(`/order/${order.id}`);
                     }}
                   >
-                    Details
+                    訂單細節
                   </Button>
                 </td>
               </tr>

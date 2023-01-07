@@ -225,3 +225,9 @@ Future modification:
     1. create submit review form
     2. handle submit
     3. implement backend api for review
+41. Coupon (Discount+Shipping) + Save Cart Item + make UI Chinese
+    1. create coupon (Discount+Shipping)
+    2. Apply coupon when place order (Discount+Shipping)
+    3. Save cart item when sign out
+    4. Get cart item when sign in
+    5. Make UI into Chinese

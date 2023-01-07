@@ -41,7 +41,6 @@ orderRouter.get(
         const orders =  await OrderRepo.countOrderNum()
         const dailyOrders = await OrderRepo.countDailyOrderNum()
         const productCategories = await ProductRepo.countProductCategories()
-        console.log(productCategories)
         res.send({ users, orders, dailyOrders, productCategories });
     })
 )
@@ -54,6 +53,7 @@ orderRouter.get(
         res.send(orders);
     })
 );
+
 
 
 orderRouter.get(
@@ -100,5 +100,7 @@ orderRouter.put(
       res.send({ message: `Order ${orderId} Deleted` });
     })
   );
+
+
 
 export default orderRouter;

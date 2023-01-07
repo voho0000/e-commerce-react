@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import { isAuth, isAdmin, generateToken } from '../utils.js';
 import UserRepo from '../repos/user-repo.js';
+import CartRepo from '../repos/cart-repo.js';
 
 
 const userRouter = express.Router();
@@ -22,10 +23,8 @@ userRouter.post(
     expressAsyncHandler(async (req, res) => {
         var user = await UserRepo.findByEmail(req.body.email);
         user = user[0]
-
+        const cartItems = await CartRepo.findByUser(user.id);
         if (user) {
-            console.log(generateToken(user));
-            console.log(user);
             if (bcrypt.compareSync(req.body.password, user.password)) {
                 res.send({
                     id: user.id,
@@ -33,6 +32,7 @@ userRouter.post(
                     email: user.email,
                     isadmin: user.isadmin,
                     token: generateToken(user),
+                    cartItems
                 })
                 return;
             }
@@ -45,33 +45,22 @@ userRouter.post(
 userRouter.post(
     '/signup',
     expressAsyncHandler(async (req, res) => {
-        var user = {
+        const user = {
             name: req.body.name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password),
-            isadmin: req.body.isadmin ? req.body.isadmin : 0,
-            token: ''
+            isadmin: req.body.isadmin ? req.body.isadmin : 0
         };
 
 
-        var createdUser = await UserRepo.createUser(user);
-        createdUser = createdUser[0]
-        user = {
-            id: createdUser.id,
-            name: createdUser.name,
-            email: createdUser.email,
-            isadmin: createdUser.isadmin
-        };
-        createdUser.token = generateToken(user)
-        createdUser = await UserRepo.updateUserToken(createdUser);
-        createdUser = createdUser[0]
+        const createdUser = await UserRepo.createUser(user);
 
         res.send({
             id: createdUser.id,
             name: createdUser.name,
             email: createdUser.email,
             isadmin: createdUser.isadmin,
-            token: createdUser.token,
+            token: generateToken(createdUser),
         });
     })
 );
@@ -87,15 +76,13 @@ userRouter.put(
             if (req.body.password) {
                 user.password = bcrypt.hashSync(req.body.password, 8);
             }
-            user.token = generateToken(user)
             const updatedUser = await UserRepo.updateUserProfileInfo(user);
-            console.log(updatedUser)
             res.send({
                 id: updatedUser.id,
                 name: updatedUser.name,
                 email: updatedUser.email,
                 isadmin: updatedUser.isadmin,
-                token: updatedUser.token,
+                token: generateToken(updatedUser)
             });
         } else {
             res.status(404).send({ message: 'User not found' });
@@ -127,7 +114,6 @@ userRouter.get(
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
         user.isadmin = Number(req.body.isadmin);
-        user.token = generateToken(user);
         const updatedUser = await UserRepo.updateUserAuth(user);
         res.send({ message: 'User Updated', user: updatedUser });
       } else {

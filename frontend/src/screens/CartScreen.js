@@ -39,14 +39,14 @@ export default function CartScreen() {
     return (
         <div>
             <Helmet>
-                <title>Shopping Cart</title>
+                <title>購物車</title>
             </Helmet>
-            <h1>Shopping Cart</h1>
+            <h1>購物車</h1>
             <Row>
                 <Col md={8}>
                     {cartItems.length === 0 ? (
                         <MessageBox>
-                            Cart is empty. <Link to="/">Go Shopping</Link>
+                            購物車尚未有商品。 <Link to="/">購物去</Link>
                         </MessageBox>
                     ) : (
                         <ListGroup>
@@ -104,8 +104,8 @@ export default function CartScreen() {
                             <ListGroup variant="flush">
                                 <ListGroup.Item>
                                     <h3>
-                                        Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                                        items) : $
+                                        總價 ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
+                                        樣商品) : $
                                         {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                                     </h3>
                                 </ListGroup.Item>
@@ -117,7 +117,7 @@ export default function CartScreen() {
                                             onClick={checkoutHandler}
                                             disabled={cartItems.length === 0}
                                         >
-                                            Proceed to Checkout
+                                            結帳
                                         </Button>
                                     </div>
                                 </ListGroup.Item>

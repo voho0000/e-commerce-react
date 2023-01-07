@@ -48,7 +48,7 @@ function Product({ product }) {
             Out of stock
           </Button>
         ) : (
-          <Button onClick={() => addToCartHandler(product)}>Add to cart</Button>
+          <Button onClick={() => addToCartHandler(product)}>加入購物車</Button>
         )}
       </Card.Body>
     </Card>

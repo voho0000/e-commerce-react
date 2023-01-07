@@ -60,7 +60,7 @@ function Rating({ rating, num_reviews, caption }) {
       {caption ? (
         <span>{caption}</span>
       ) : (
-        <span>{' ' + num_reviews + ' reviews'}</span>
+        <span>{' ' + num_reviews + ' 則評價'}</span>
       )}
     </div>
   );

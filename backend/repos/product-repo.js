@@ -3,7 +3,8 @@ const PAGE_SIZE = 3;
 export default class ProductRepo {
     static async getProducts() {
         try {
-            const { rows } = await pool.query('SELECT * FROM product where discontinue_date IS NULL ORDER BY id ASC;');
+            const { rows } = await pool.query(
+                `SELECT * FROM product WHERE discontinue_date IS NULL ORDER BY id ASC;`);
             return rows
         } catch (err) {
             console.log(err)
@@ -12,7 +13,8 @@ export default class ProductRepo {
 
     static async getCategories() {
         try {
-            const { rows } = await pool.query('SELECT distinct(category) FROM product where discontinue_date IS NULL;');
+            const { rows } = await pool.query(
+                `SELECT DISTINCT(category) FROM product WHERE discontinue_date IS NULL;`);
             let categories = rows.map(({ category }) => category)
             return categories
         } catch (err) {

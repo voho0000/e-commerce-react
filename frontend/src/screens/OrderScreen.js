@@ -141,12 +141,13 @@ export default function OrderScreen() {
                 }
             );
             dispatch({ type: 'DELIVER_SUCCESS', payload: data });
-            toast.success('Order is delivered');
+            toast.success('訂單已成功運送');
         } catch (err) {
             toast.error(getError(err));
             dispatch({ type: 'DELIVER_FAIL' });
         }
     }
+
 
     return loading ? (
         <LoadingBox></LoadingBox>
@@ -155,23 +156,23 @@ export default function OrderScreen() {
     ) : (
         <div>
             <Helmet>
-                <title>Order {orderId}</title>
+                <title>訂單 {orderId}</title>
             </Helmet>
-            <h1 className="my-3">Order {orderId}</h1>
+            <h1 className="my-3">訂單</h1>
             <Row>
                 <Col md={8}>
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Shipping</Card.Title>
+                            <Card.Title>運送</Card.Title>
                             <Card.Text>
-                                <strong>Name:</strong> {order.shipping_address.fullname} <br />
-                                <strong>Address: </strong> {order.shipping_address.address},
+                                <strong>姓名:</strong> {order.shipping_address.fullname} <br />
+                                <strong>地址: </strong> {order.shipping_address.address},
                                 {order.shipping_address.city}, {order.shipping_address.postal_code}
                                 ,{order.shipping_address.country}
                             </Card.Text>
                             {order.isdelivered ? (
                                 <MessageBox variant="success">
-                                    Delivered at {order.delivered_time}
+                                    運送日期： {order.delivered_time.substring(0,10)}
                                 </MessageBox>
                             ) : (
                                 <MessageBox variant="danger">Not Delivered</MessageBox>
@@ -180,13 +181,13 @@ export default function OrderScreen() {
                     </Card>
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Payment</Card.Title>
+                            <Card.Title>付款</Card.Title>
                             <Card.Text>
-                                <strong>Method:</strong> {order.payment_method}
+                                <strong>方式:</strong> {order.payment_method}
                             </Card.Text>
                             {order.ispaid ? (
                                 <MessageBox variant="success">
-                                    Paid at {order.paid_time}
+                                    付款日期： {order.paid_time.substring(0,10)}
                                 </MessageBox>
                             ) : (
                                 <MessageBox variant="danger">Not Paid</MessageBox>
@@ -196,7 +197,7 @@ export default function OrderScreen() {
 
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Items</Card.Title>
+                            <Card.Title>購買項目</Card.Title>
                             <ListGroup variant="flush">
                                 {order.orderItems.map((item) => (
                                     <ListGroup.Item key={item.product_id}>
@@ -226,37 +227,37 @@ export default function OrderScreen() {
                 <Col md={4}>
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Order Summary</Card.Title>
+                            <Card.Title>訂單總結</Card.Title>
                             <ListGroup variant="flush">
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Items</Col>
+                                        <Col>商品價格</Col>
                                         <Col>${order.items_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Shipping</Col>
+                                        <Col>運費</Col>
                                         <Col>${order.shipping_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Discount</Col>
+                                        <Col>折扣金額</Col>
                                         <Col>${order.discount_price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>
-                                            <strong> Order Total</strong>
+                                            <strong> 訂單總價</strong>
                                         </Col>
                                         <Col>
                                             <strong>${order.total_price}</strong>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
-                                {!order.ispaid && (
+                                {!order.ispaid && (order.user_id===userInfo.id)&&(
                                     <ListGroup.Item>
 
                                         <div className="d-grid">
@@ -264,7 +265,7 @@ export default function OrderScreen() {
                                                 type="button"
                                                 onClick={paymentHandler}
                                             >
-                                                Pay
+                                                付款
                                             </Button>
                                         </div>
 
@@ -272,16 +273,18 @@ export default function OrderScreen() {
                                     </ListGroup.Item>
                                 )}
 
-                                {userInfo.isadmin && order.ispaid && !order.isdelivered && (
+                                {userInfo.isadmin ? (
+                                    userInfo.isadmin&& order.ispaid && !order.isdelivered && (
                                     <ListGroup.Item>
                                         {loadingDeliver && <LoadingBox></LoadingBox>}
                                         <div className="d-grid">
                                             <Button type="button" onClick={deliverOrderHandler}>
-                                                Deliver Order
+                                                送貨
                                             </Button>
                                         </div>
                                     </ListGroup.Item>
-                                )}
+                                ))
+                                :(null)}
                             </ListGroup>
                         </Card.Body>
                     </Card>

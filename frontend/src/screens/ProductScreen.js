@@ -149,15 +149,15 @@ function ProductScreen() {
     ) : (
         <div>
             <Row>
-                <Col md={6}>
+                <Col md={4}>
                     <img
                         className="img-large"
                         src={product.image_url}
                         alt={product.name}
-                        style={{ width: '400px' }}
+                        style={{ objectFit:'contain'}}
                     ></img>
                 </Col>
-                <Col md={3}>
+                <Col md={5}>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Helmet>
@@ -171,9 +171,9 @@ function ProductScreen() {
                                 num_reviews={product.num_reviews}
                             ></Rating>
                         </ListGroup.Item>
-                        <ListGroup.Item>Pirce : ${product.price}</ListGroup.Item>
+                        <ListGroup.Item>價格 : ${product.price}</ListGroup.Item>
                         <ListGroup.Item>
-                            Description:
+                            商品描述:
                             <p>{product.description}</p>
                         </ListGroup.Item>
                     </ListGroup>
@@ -184,16 +184,16 @@ function ProductScreen() {
                             <ListGroup variant="flush">
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Price:</Col>
+                                        <Col>價格：</Col>
                                         <Col>${product.price}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col>Status:</Col>
+                                        <Col>商品狀態：</Col>
                                         <Col>
                                             {product.countinstock > 0 ? (
-                                                <Badge bg="success">In Stock</Badge>
+                                                <Badge bg="success">有存貨</Badge>
                                             ) : (
                                                 <Badge bg="danger">Unavailable</Badge>
                                             )}
@@ -205,7 +205,7 @@ function ProductScreen() {
                                     <ListGroup.Item>
                                         <div className="d-grid">
                                             <Button onClick={addToCartHandler} variant="primary">
-                                                Add to Cart
+                                                加入購物車
                                             </Button>
                                         </div>
                                     </ListGroup.Item>
@@ -216,7 +216,7 @@ function ProductScreen() {
                 </Col>
             </Row>
             <div className="my-3">
-                <h2 ref={reviewsRef}>Reviews</h2>
+                <h2 ref={reviewsRef}>評論</h2>
                 <div className="mb-3">
                     {product.num_reviews === 0 && (
                         <MessageBox>There is no review</MessageBox>

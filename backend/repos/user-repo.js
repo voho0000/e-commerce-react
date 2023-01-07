@@ -23,34 +23,26 @@ export default class UserRepo {
 
     static async createUser(user) {
         try {
-            await pool.query(`INSERT INTO member(email, name, password, isAdmin, token) 
-                            VALUES($1, $2, $3, $4, $5);`,
-                [user.email, user.name, user.password, user.isadmin, user.token]);
-
+            await pool.query(`INSERT INTO member(email, name, password, isadmin) 
+                            VALUES($1, $2, $3, $4);`,
+                [user.email, user.name, user.password, user.isadmin]);
+            // name+email
             var { rows } = await pool.query("SELECT currval('member_id_seq')");
             const id = parseInt(rows[0].currval)
             var { rows } = await pool.query("SELECT * from member where id = $1;", [id]);
+            rows = rows[0]
             return rows
         } catch (err) {
             console.log(err)
         }
     }
 
-    static async updateUserToken(createdUser) {
-        try {
-            await pool.query(`UPDATE member SET token = $1 WHERE id = $2;`,
-                [createdUser.token, createdUser.id]);
-            var { rows } = await pool.query("SELECT * from member where id = $1;", [createdUser.id]);
-            return rows
-        } catch (err) {
-            console.log(err)
-        }
-    }
+
 
     static async updateUserProfileInfo(user) {
         try {
-            await pool.query(`UPDATE member SET email = $1, name= $2, password=$3, token=$4 WHERE id = $5;`,
-                [user.email, user.name, user.password, user.token, user.id]);
+            await pool.query(`UPDATE member SET email = $1, name= $2, password=$3 WHERE id = $4;`,
+                [user.email, user.name, user.password,  user.id]);
             var { rows } = await pool.query("SELECT * from member where id = $1;", [user.id]);
             rows = rows[0]
             return rows
@@ -77,8 +69,9 @@ export default class UserRepo {
 
     static async updateUserAuth(user) {
         try {
-            await pool.query(`UPDATE member SET email = $1, name= $2, isadmin=$3, token=$4 WHERE id = $5;`,
-                [user.email, user.name, user.isadmin, user.token, user.id]);
+            await pool.query(`UPDATE member SET email = $1, name= $2,  isadmin=$3
+                WHERE id = $4;`,
+                [user.email, user.name, user.isadmin, user.id]);
             var { rows } = await pool.query("SELECT * from member where id = $1;", [user.id]);
             rows = rows[0]
             return rows

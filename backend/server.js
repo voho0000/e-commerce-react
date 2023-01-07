@@ -7,6 +7,8 @@ import pool from './pool.js'
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
+import couponRouter from './routes/couponRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
 import fileUpload from 'express-fileupload';
 
 
@@ -27,6 +29,8 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/upload', uploadRouter);
+app.use('/api/coupons', couponRouter);
+app.use('/api/cart', cartRouter);
 
 
 app.use((err, req, res, next) => {
