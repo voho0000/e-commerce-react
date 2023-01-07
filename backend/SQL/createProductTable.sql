@@ -1,15 +1,15 @@
 CREATE TABLE product(
 	id SERIAL primary key NOT NULL ,
 	name varchar NOT NULL,
-	category varchar,
+	category varchar NOT NULL,
     brand varchar,
 	description varchar,
 	price int NOT NULL,
 	image_url VARCHAR NOT NULL,
 	created_time TIMESTAMP NOT NULL,
 	discontinue_date TIMESTAMP,
-    rating INT,
-    num_reviews INT,
+    rating INT DEFAULT 0,
+    num_reviews INT DEFAULT 0,
     featured INT DEFAULT 0
 );
 
