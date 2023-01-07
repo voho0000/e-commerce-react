@@ -28,13 +28,13 @@ CREATE TABLE purchase_item (
 	foreign key (product_id) references product(id) on update cascade on delete cascade
 );
 
-CREATE TABLE address(
+CREATE TABLE shipping_address(
 	id SERIAL primary key NOT NULL ,
 	order_id int NOT NULL,
-	fullname varchar,
-	phone int,
-	address varchar,
-	city varchar,
+	fullname varchar NOT NULL,
+	phone int NOT NULL,
+	address varchar NOT NULL,
+	city varchar NOT NULL,
 	postal_code int,
 	country varchar,
 	foreign key (order_id) references orders(id) on update cascade on delete cascade
@@ -42,23 +42,23 @@ CREATE TABLE address(
 
 CREATE TABLE shipping_coupon(
 	id SERIAL primary key NOT NULL ,
-	name varchar,
-	price_criteria int default 0,
-	start_date DATE,
-	end_date DATE,
-	max_num int,
-	code varchar
+	name varchar NOT NULL,
+	price_criteria int default 0 NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
+	max_num int NOT NULL,
+	code varchar NOT NULL
 	);
 
 CREATE TABLE discount_coupon(
 	id SERIAL primary key NOT NULL ,
-	name varchar,
-	price_criteria int default 0,
-	discount_num int,
-	start_date DATE,
-	end_date DATE,
-	max_num int,
-	code varchar
+	name varchar NOT NULL,
+	price_criteria int default 0 NOT NULL,
+	discount_num int NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
+	max_num int NOT NULL,
+	code varchar NOT NULL
 	);
 
 
