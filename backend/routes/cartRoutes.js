@@ -11,7 +11,6 @@ cartRouter.get(
     isAuth,
     expressAsyncHandler(async (req, res) => {
         const cartItems = await CartRepo.findByUser(req.user.id);
-        console.log(cartItems)
         res.send({ cartItems });
     })
 );

@@ -231,3 +231,6 @@ Future modification:
     3. Save cart item when sign out
     4. Get cart item when sign in
     5. Make UI into Chinese
+42. Fix proxy problem + Remove Cart Items
+    1. Fix proxy problem
+    2. Remove cart items after place order

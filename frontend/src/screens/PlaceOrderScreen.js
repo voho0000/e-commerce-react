@@ -78,6 +78,12 @@ export default function PlaceOrderScreen() {
             ctxDispatch({ type: 'CART_CLEAR' });
             dispatch({ type: 'CREATE_SUCCESS' });
             localStorage.removeItem('cartItems');
+            await Axios.delete(`api/cart`,                
+            {
+                headers: {
+                    authorization: `Bearer ${userInfo.token}`,
+                },
+            })
             navigate(`/order/${data.order.id}`);
         } catch (err) {
             dispatch({ type: 'CREATE_FAIL' });
