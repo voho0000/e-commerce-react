@@ -94,7 +94,7 @@ export default function UserEditScreen() {
       <Helmet>
         <title>編輯使用者</title>
       </Helmet>
-      <h1>編輯使用者 {userId}</h1>
+      <h1>編輯使用者</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>

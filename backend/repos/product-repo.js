@@ -186,6 +186,11 @@ export default class ProductRepo {
                     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, current_timestamp);`,
                 [p.name, p.image_url, p.price, p.category,
                 p.brand, p.countinstock, p.rating, p.num_reviews, p.description]);
+
+                const { rows } = await pool.query(`
+                    SELECT * FROM product 
+                        WHERE id = (SELECT MAX(id) FROM product);`);
+            return rows[0]
         } catch (err) {
             console.log(err)
         }

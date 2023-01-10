@@ -105,7 +105,7 @@ export default function ProductListScreen() {
                         headers: { Authorization: `Bearer ${userInfo.token}` },
                     }
                 );
-                toast.success('成功新增商品');
+                console.log(data.product)
                 dispatch({ type: 'CREATE_SUCCESS' });
                 navigate(`/admin/product/${data.product.id}`);
             } catch (err) {

@@ -144,10 +144,9 @@ export default function ProductEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>編輯商品 ${productId}</title>
+        <title>商品</title>
       </Helmet>
-      <h1>編輯商品 {productId}</h1>
-
+      <h1>{(name.substring(0,6)=='sample')? "上架商品" :"編輯商品"}</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (

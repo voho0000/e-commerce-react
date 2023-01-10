@@ -35,7 +35,7 @@ productRouter.post(
     };
     const product = await ProductRepo.createProduct(newProduct);
     console.log(product);
-    //res.send({ message: 'Product Created', product });
+    res.send({ message: 'Product Created', product });
   })
 );
 
