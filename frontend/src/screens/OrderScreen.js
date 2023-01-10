@@ -73,22 +73,7 @@ export default function OrderScreen() {
         loadingPay: false,
     });
 
-    const paymentHandler = async (e) => {
-        e.preventDefault();
-        order.ispaid = true;
-        try {
-            dispatch({ type: 'PAY_REQUEST' });
-            const { data } = await axios.put(`/api/orders/${order.id}/pay`,
-                order,
-                {
-                    headers: { authorization: `Bearer ${userInfo.token}` },
-                });
-            dispatch({ type: 'PAY_SUCCESS', payload: data, successPay: true });
-            //localStorage.setItem('userInfo', JSON.stringify(data));
-        } catch (err) {
-            toast.error(getError(err));
-        }
-    }
+
 
 
 
@@ -129,6 +114,24 @@ export default function OrderScreen() {
             }
         }
     }, [userInfo, orderId, navigate, successPay, successDeliver,]);
+
+    const paymentHandler = async (e) => {
+        order.ispaid = true;
+        try {
+            dispatch({ type: 'PAY_REQUEST' });
+            const { data } = await axios.put(`/api/orders/${order.id}/pay`,
+                order,
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                });
+            dispatch({ type: 'PAY_SUCCESS', payload: data, successPay: true });
+            toast.success('訂單已成功付款');
+            //localStorage.setItem('userInfo', JSON.stringify(data));
+        } catch (err) {
+            toast.error(getError(err));
+            dispatch({ type: 'PAY_FAIL' });
+        }
+    }
 
     async function deliverOrderHandler() {
         try {

@@ -76,7 +76,7 @@ export default function OrderListScreen() {
             await axios.delete(`/api/orders/${order.id}`, {
                 headers: { Authorization: `Bearer ${userInfo.token}` },
             });
-            toast.success('order deleted successfully');
+            toast.success('訂單已成功刪除');
             dispatch({ type: 'DELETE_SUCCESS' });
         } catch (err) {
             toast.error(getError(error));

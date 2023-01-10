@@ -32,6 +32,15 @@ export default class OrderRepo {
                     [orderId, orderAddress.fullname, orderAddress.phone, orderAddress.address, 
                         orderAddress.city, orderAddress.postal_code, orderAddress.country])
 
+            if (order.discount_coupon){
+                await pool.query(`INSERT INTO used_discount_coupon(order_id, coupon_id) 
+                        VALUES($1, $2)`, [orderId, order.discount_coupon.id])
+            }
+            if (order.shipping_coupon){
+                await pool.query(`INSERT INTO used_shipping_coupon(order_id, coupon_id) 
+                        VALUES($1, $2)`, [orderId, order.shipping_coupon.id])
+            }
+
             return order
         } catch (err) {
             console.log(err)
@@ -40,7 +49,9 @@ export default class OrderRepo {
 
     static async findByUser(userId) {
         try {
-            var { rows } = await pool.query(`SELECT * FROM orders WHERE user_id = $1;`, [userId]);
+            var { rows } = await pool.query(`
+                SELECT * FROM orders WHERE user_id = $1;`, 
+                [userId]);
             return rows
         } catch (err) {
             console.log(err)
@@ -49,13 +60,18 @@ export default class OrderRepo {
 
     static async findById(orderId) {
         try {
-            var { rows } = await pool.query(`SELECT * FROM orders WHERE id = $1;`, [orderId]);
+            var { rows } = await pool.query(`
+                SELECT * FROM orders WHERE id = $1;`, 
+                [orderId]);
             var order = rows[0];
-            var { rows } = await pool.query(`SELECT * FROM purchase_item WHERE order_id = $1;`, [orderId]);
+            var { rows } = await pool.query(`
+                SELECT * FROM purchase_item WHERE order_id = $1;`,
+                [orderId]);
             order.orderItems = rows
-            var { rows } = await pool.query(`SELECT * FROM shipping_address WHERE order_id = $1;`, [orderId]);
-            rows = rows[0]
-            order.shipping_address = rows
+            var { rows } = await pool.query(`
+                SELECT * FROM shipping_address WHERE order_id = $1;`, 
+                [orderId]);
+            order.shipping_address = rows[0]
             //console.log(order)
             return order
         } catch (err) {
@@ -78,8 +94,9 @@ export default class OrderRepo {
 
     static async countOrderNum() {
         try {
-            var { rows } = await pool.query(`SELECT COUNT(*) as num_orders, SUM(total_price) as total_sales
-            FROM orders;`)
+            var { rows } = await pool.query(`
+            SELECT COUNT(*) as num_orders, SUM(total_price) as total_sales
+                FROM orders;`)
             rows = rows[0]
             return rows
         } catch (err) {

@@ -132,7 +132,7 @@ export default function ProductEditScreen() {
           },
         });
       dispatch({ type: 'UPLOAD_SUCCESS' });
-      toast.success('Image uploaded successfully');
+      toast.success('成功上傳圖片');
       
       setImage(data.image_url);
     } catch (err) {

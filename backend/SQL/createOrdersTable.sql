@@ -62,8 +62,6 @@ CREATE TABLE discount_coupon(
 	code varchar NOT NULL
 	);
 
-
-
 CREATE TABLE used_shipping_coupon(
 	id SERIAL primary key NOT NULL ,
 	coupon_id int NOT NULL,

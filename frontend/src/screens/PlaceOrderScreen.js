@@ -68,6 +68,8 @@ export default function PlaceOrderScreen() {
                     shipping_price: cart.shipping_price,
                     discount_price: cart.discount_price,
                     total_price: cart.total_price,
+                    discount_coupon: appliedCoupon,
+                    shipping_coupon: appliedShippingCoupon
                 },
                 {
                     headers: {
@@ -106,7 +108,7 @@ export default function PlaceOrderScreen() {
                         setDiscountError(`消費需滿${data.price_criteria}元才可使用`);
                     } else {
                         setDiscount(data.discount_num)
-                        setAppliedCoupon({ code: data.code });
+                        setAppliedCoupon({ code: data.code, id: data.id });
                     }
                 }
             } else {
@@ -135,7 +137,7 @@ export default function PlaceOrderScreen() {
                         setShippingError(`消費需滿${data.price_criteria}元才可使用`);
                     } else {
                         setShippingCode(data.code)
-                        setAppliedShippingCoupon({ code: data.code });
+                        setAppliedShippingCoupon({ code: data.code, id: data.id });
                     }
                 }
             } else {
@@ -280,7 +282,7 @@ export default function PlaceOrderScreen() {
                                         已使用折價券: {appliedCoupon.code}，折扣{discount_price}元。
                                     </Alert>
                                 )}
-                                {discountError && <Alert variant="danger">{discountError}</Alert>}
+                                {!appliedCoupon && discountError && <Alert variant="danger">{discountError}</Alert>}
                                 <Form.Group className="mb-3" controlId="discount">
                                     <Form.Label>折扣碼 : </Form.Label>
                                     <Form.Control
@@ -304,7 +306,7 @@ export default function PlaceOrderScreen() {
                                         已使用免運券: {appliedShippingCoupon.code}。
                                     </Alert>
                                 )}
-                                {shippingError && <Alert variant="danger">{shippingError}</Alert>}
+                                {!appliedShippingCoupon && shippingError && <Alert variant="danger">{shippingError}</Alert>}
                                 <Form.Group className="mb-3" controlId="discount">
                                     <Form.Label>免運券 : </Form.Label>
                                     <Form.Control

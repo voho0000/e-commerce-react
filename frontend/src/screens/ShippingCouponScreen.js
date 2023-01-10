@@ -152,7 +152,7 @@ export default function ShippingCouponScreen() {
         <div>
             <Row>
                 <Col>
-                    <h1 className='my-3'>折價券</h1>
+                    <h1 className='my-3'>免運券</h1>
                 </Col>
             </Row>
             <Row className='my-3'>

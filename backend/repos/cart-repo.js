@@ -12,7 +12,9 @@ export default class CartRepo {
             var cartItems=[];
             if (cart){
                 for (var i=0; i < cart.length; i++){
-                    var {rows} = await pool.query(`select * from product where id = $1`, [cart[i].product_id]);
+                    var {rows} = await pool.query(`
+                        select * from product where id = $1`,
+                        [cart[i].product_id]);
                     var product = rows[0]
                     product.quantity = cart[i].quantity
                     cartItems.push(product)

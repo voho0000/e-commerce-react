@@ -82,7 +82,7 @@ export default function UserEditScreen() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('User updated successfully');
+      toast.success('成功更新會員資料');
       navigate('/admin/users');
     } catch (error) {
       toast.error(getError(error));

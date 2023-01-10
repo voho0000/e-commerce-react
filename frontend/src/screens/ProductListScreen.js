@@ -105,7 +105,7 @@ export default function ProductListScreen() {
                         headers: { Authorization: `Bearer ${userInfo.token}` },
                     }
                 );
-                toast.success('product created successfully');
+                toast.success('成功新增商品');
                 dispatch({ type: 'CREATE_SUCCESS' });
                 navigate(`/admin/product/${data.product.id}`);
             } catch (err) {
@@ -122,7 +122,7 @@ export default function ProductListScreen() {
                 await axios.delete(`/api/products/${product.id}`, {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 });
-                toast.success('product deleted successfully');
+                toast.success('成功刪除商品');
                 dispatch({ type: 'DELETE_SUCCESS' });
             } catch (err) {
                 toast.error(getError(error));
