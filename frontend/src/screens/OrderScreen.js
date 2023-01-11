@@ -175,7 +175,7 @@ export default function OrderScreen() {
                             </Card.Text>
                             {order.isdelivered ? (
                                 <MessageBox variant="success">
-                                    運送日期： {order.delivered_time.substring(0,10)}
+                                    運送日期： {order.delivered_time&&order.delivered_time.substring(0,10)}
                                 </MessageBox>
                             ) : (
                                 <MessageBox variant="danger">Not Delivered</MessageBox>
@@ -190,7 +190,7 @@ export default function OrderScreen() {
                             </Card.Text>
                             {order.ispaid ? (
                                 <MessageBox variant="success">
-                                    付款日期： {order.paid_time.substring(0,10)}
+                                    付款日期： {order.paid_time&&order.paid_time.substring(0,10)}
                                 </MessageBox>
                             ) : (
                                 <MessageBox variant="danger">Not Paid</MessageBox>

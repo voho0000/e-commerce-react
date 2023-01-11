@@ -107,7 +107,9 @@ export default function ProductEditScreen() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Product updated successfully');
+
+      toast.success('成功新增商品')
+
       navigate('/admin/products');
     } catch (err) {
       toast.error(getError(err));
@@ -133,7 +135,7 @@ export default function ProductEditScreen() {
         });
       dispatch({ type: 'UPLOAD_SUCCESS' });
       toast.success('成功上傳圖片');
-      
+
       setImage(data.image_url);
     } catch (err) {
       toast.error(getError(err));
@@ -146,7 +148,7 @@ export default function ProductEditScreen() {
       <Helmet>
         <title>商品</title>
       </Helmet>
-      <h1>{(name.substring(0,6)=='sample')? "上架商品" :"編輯商品"}</h1>
+      <h1>{(name.substring(0, 6) == 'sample') ? "上架商品" : "編輯商品"}</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -173,13 +175,14 @@ export default function ProductEditScreen() {
             <Form.Label>上傳檔案</Form.Label>
             <Form.Control className='my-2' type="file" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox></LoadingBox>}
-            {(image_url)?(
-              <img src={image_url} alt="product photo" className='img img-responsive' height='200px' />) 
-              :(
-                photo && (
-                  <div>
-                    <img src={URL.createObjectURL(photo)} alt="product photo" className='img img-responsive' height='200px' />
-                  </div>)
+            {(photo) ? (
+              photo && (
+                <div>
+                  <img src={URL.createObjectURL(photo)} alt="product photo" className='img img-responsive' height='200px' />
+                </div>)
+            )
+              : (
+                <img src={image_url} alt="product photo" className='img img-responsive' height='200px' />
               )}
 
           </Form.Group>
@@ -217,7 +220,7 @@ export default function ProductEditScreen() {
           </Form.Group>
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
-              更新
+              送出
             </Button>
           </div>
         </Form>
