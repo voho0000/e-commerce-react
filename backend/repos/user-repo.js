@@ -4,7 +4,9 @@ export default class UserRepo {
     static async findByEmail(email) {
         try {
             const userEmail = email
-            const { rows } = await pool.query("SELECT * FROM member WHERE email = $1;", [userEmail]);
+            const { rows } = await pool.query(
+                "SELECT * FROM member WHERE email = $1;"
+                , [userEmail]);
             return rows
         } catch (err) {
             console.log(err)
@@ -63,7 +65,8 @@ export default class UserRepo {
     }
 
     static async findAll(){
-        const { rows } = await pool.query( `SELECT * FROM member ORDER BY id ASC;`)
+        const { rows } = await pool.query( 
+            `SELECT * FROM member ORDER BY id ASC;`)
         return rows
     }
 

@@ -80,7 +80,10 @@ export default class OrderRepo {
     }
 
     static async updateOrderPay(order) {
-        await pool.query(`UPDATE orders SET ispaid = $1, paid_time=current_timestamp WHERE id = $2;`,
+        await pool.query(
+            `UPDATE orders 
+                SET ispaid = $1, paid_time=current_timestamp 
+                WHERE id = $2;`,
             [order.ispaid, order.id]);
         var { rows } = await pool.query("SELECT * from orders where id = $1;", [order.id]);
         var newOrder = rows[0];

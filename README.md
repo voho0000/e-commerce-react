@@ -7,7 +7,23 @@
 2. Git clone the project  
 `$ git clone https://github.com/voho0000/e-commerce-react.git`
 
-3. Install the dependency packages and start the project
+3. Setting database and environment variable
+- create .env file in backend folder
+```
+PG_USER = postgres
+PG_HOST= localhost
+PG_DATABASE= oldman_report
+PG_PASSWORD= YOUR_PASSWORD 
+PG_PORT= 5432 // your postgresql port
+
+JWT_SECRET = YOUR_KEY // For token generation
+```
+- restore database from sql file
+`pg_restore -h localhost -d oldman_report -U postgres /sql/oldman_report.sql`
+- If you only need schema, the `create table` sql code was in backend/sql folder
+
+
+4. Install the dependency packages and start the project
  - frontend  
 ```
 $ cd frontend
@@ -22,7 +38,7 @@ $ npm install
 $ npm start
 ```
 
-4. Go to the port which frontend hosting on ex. port 3000  
+5. Go to the port which frontend hosting on ex. port 3000  
 Enter `localhost:3000` on website
 
 ## Reference
